@@ -12,6 +12,10 @@ namespace Grid.Framework
 
         public Color BackColor { get; set; } = Color.CornflowerBlue;
 
+        private GameObject _mainCam;
+        public GameObject MainCamera { get => _mainCam; set { _mainCam = value; mainCameraComponent = value.GetComponent<Camera>(); } }
+        protected Camera mainCameraComponent;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -26,11 +30,21 @@ namespace Grid.Framework
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            var mainCam = new GameObject("Camera");
+            MainCamera.AddComponent<Camera>();
+
+            MainCamera = mainCam;
+
+            Camera.Current = MainCamera;
+
             base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
+            _gameObjects.ForEach(o => o.Update());
+            _gameObjects.ForEach(o => o.LateUpdate());
             base.Update(gameTime);
         }
 
@@ -38,7 +52,7 @@ namespace Grid.Framework
         {
             GraphicsDevice.Clear(BackColor);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: mainCameraComponent.GetTransform(GraphicsDevice));
             foreach (var obj in _gameObjects)
             {
                 var comp = obj.GetComponent<Renderable2D>();

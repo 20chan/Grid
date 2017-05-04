@@ -12,6 +12,7 @@ namespace Grid.Framework
 
         public virtual void Start() { }
         public virtual void Update() { }
+        public virtual void LateUpdate() { }
 
         public static void Instantiate(GameObject gameObject) => Scene.CurrentScene.Instantiate(gameObject);
 
