@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Grid.Framework
 {
-    public abstract class Component
+    public class GridBehaviour
     {
         public virtual void Start() { }
         public virtual void Update() { }
-    }
 
-    public class SingleComponent : Attribute { }
+        public void Instantiate(GameObject gameObject) => Scene.CurrentScene.Instantiate(gameObject);
+        public void Destroy(object obj) => throw new NotImplementedException();
+    }
 }

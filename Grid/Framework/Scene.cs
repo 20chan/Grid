@@ -17,5 +17,11 @@ namespace Grid.Framework
         {
             _gameObjects = new List<GameObject>();
         }
+
+        public void Instantiate(GameObject gameObject)
+            => _gameObjects.Add(gameObject);
+
+        public void Destroy(GameObject gameObject)
+            => _gameObjects.Remove(gameObject);
     }
 }

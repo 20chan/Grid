@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Framework\Component.cs" />
     <Compile Include="Framework\GameObject.cs" />
+    <Compile Include="Framework\GridBehaviour.cs" />
     <Compile Include="Framework\Scene.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
