@@ -37,6 +37,7 @@ namespace Grid.Framework
             MainCamera = mainCam;
 
             Camera.Current = MainCamera;
+            Instantiate(mainCam);
 
             base.LoadContent();
         }

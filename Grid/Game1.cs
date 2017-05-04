@@ -18,6 +18,8 @@ namespace Grid
         
         protected override void LoadContent()
         {
+            base.LoadContent();
+
             GameObject obj = new GameObject("square");
             var render = obj.AddComponent<Renderable2D>();
             render.Texture = Content.Load<Texture2D>("square");
@@ -25,7 +27,7 @@ namespace Grid
             obj.AddComponent<Movable>();
             Instantiate(obj);
 
-            base.LoadContent();
+            MainCamera.AddComponent<MovableCamera>();
         }
     }
 
@@ -42,6 +44,23 @@ namespace Grid
                 GameObject.Transform.Position += new Vector2(-1, 0) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.D))
                 GameObject.Transform.Position += new Vector2(1, 0) * Speed;
+            base.Update();
+        }
+    }
+
+    class MovableCamera : Component
+    {
+        public float Speed = 1f;
+        public override void LateUpdate()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                GameObject.GetComponent<Camera>().Position += new Vector2(0, -1) * Speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                GameObject.GetComponent<Camera>().Position += new Vector2(0, 1) * Speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                GameObject.GetComponent<Camera>().Position += new Vector2(-1, 0) * Speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                GameObject.GetComponent<Camera>().Position += new Vector2(1, 0) * Speed;
             base.Update();
         }
     }

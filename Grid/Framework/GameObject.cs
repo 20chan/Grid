@@ -48,7 +48,7 @@ namespace Grid.Framework
         }
 
         public T GetComponent<T>() where T : Component
-            => _components.First(c => c is T) as T;
+            => _components.FirstOrDefault(c => c is T) as T;
 
         public T[] GetComponents<T>() where T : Component
             => _components.FindAll(c => c is T).ToArray() as T[];
