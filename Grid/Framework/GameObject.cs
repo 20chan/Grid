@@ -35,5 +35,12 @@ namespace Grid.Framework
 
         public T[] GetComponents<T>() where T : Component
             => _components.FindAll(c => c is T).ToArray() as T[];
+
+        public void RemoveComponent(Component comp)
+            => _components.Remove(comp);
+
+        public void RemoveComponents<T>() where T : Component
+            => _components.RemoveAll(c => c is T);
+        
     }
 }
