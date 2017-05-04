@@ -11,10 +11,10 @@ namespace Grid.Framework.Components
     {
         public static Object Current;
 
-        private float _zoom;
+        private float _zoom = 1;
         public float Zoom { get => _zoom; set { _zoom = (float)Math.Max(value, 0.1); } }
-        public float Rotation { get; set; }
-        public Vector2 Position { get; set; }
+        public float Rotation { get; set; } = 0f;
+        public Vector2 Position { get; set; } = new Vector2();
 
         public Matrix GetTransform(GraphicsDevice device)
             => Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
