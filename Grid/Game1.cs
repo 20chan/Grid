@@ -1,53 +1,43 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Grid.Framework;
+using Grid.Framework.Components;
 
 namespace Grid
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class Game1 : Scene
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
-
+        
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameObject obj = new GameObject("square");
+            var render = obj.AddComponent<Renderable2D>();
+            render.Texture = Content.Load<Texture2D>("square");
+            obj.AddComponent<Movable>();
+            Instantiate(obj);
+
+            base.LoadContent();
         }
+    }
 
-        protected override void UnloadContent()
+    class Movable : Component
+    {
+        public float Speed = 0.5f;
+        public override void Update()
         {
-
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-
-            base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-
-            base.Draw(gameTime);
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+                GameObject.Transform.Position += new Vector2(0, 1) * Speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+                GameObject.Transform.Position += new Vector2(0, -1) * Speed;
+            base.Update();
         }
     }
 }

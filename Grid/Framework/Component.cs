@@ -10,6 +10,8 @@ namespace Grid.Framework
     {
         public GameObject GameObject { get; set; }
 
+        public virtual void Initialize() { }
+        public virtual void LoadContent() { }
         public virtual void Start() { }
         public virtual void Update() { }
         public virtual void LateUpdate() { }
@@ -18,7 +20,7 @@ namespace Grid.Framework
 
         public void Destroy(GameObject gameObject)
             => Scene.CurrentScene.Destroy(gameObject);
-        
+
         public void Destroy(Component comp)
             => this.GameObject.RemoveComponent(comp);
     }

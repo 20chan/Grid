@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace Grid.Framework
 {
     public class GameObject
     {
         public string Name { get; set; }
+        public Transform Transform { get; private set; }
+        public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
+        public Vector2 Scale { get => Transform.Scale; set => Transform.Scale = value; }
+        public float Rotation { get => Transform.Rotation; set => Transform.Rotation = value; }
 
         private List<Component> _components;
 
@@ -16,6 +21,7 @@ namespace Grid.Framework
         {
             Name = name;
             _components = new List<Component>();
+            Transform = new Transform();
         }
 
         public void Start()
@@ -32,8 +38,11 @@ namespace Grid.Framework
             if (Attribute.GetCustomAttribute(typeof(T), typeof(SingleComponent)) != null)
                 if (_components.Any(c => c is T))
                     throw new ArgumentException("SingleComponent can't be duplicated");
-            
-            T component = new T();
+
+            T component = new T()
+            {
+                GameObject = this
+            };
             _components.Add(component);
             return component;
         }
@@ -49,6 +58,6 @@ namespace Grid.Framework
 
         public void RemoveComponents<T>() where T : Component
             => _components.RemoveAll(c => c is T);
-        
+
     }
 }

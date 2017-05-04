@@ -21,6 +21,6 @@ namespace Grid.Framework.Components
                                             Matrix.CreateRotationZ(Rotation) *
                                             Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
                                             Matrix.CreateTranslation(new Vector3((float)device.Viewport.Width * 0.5f, device.Viewport.Height * 0.5f, 0));
-        
+
     }
 }

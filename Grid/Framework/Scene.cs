@@ -16,8 +16,8 @@ namespace Grid.Framework
         public GameObject MainCamera { get => _mainCam; set { _mainCam = value; mainCameraComponent = value.GetComponent<Camera>(); } }
         protected Camera mainCameraComponent;
 
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        protected GraphicsDeviceManager _graphics;
+        protected SpriteBatch _spriteBatch;
 
         private List<GameObject> _gameObjects;
 
@@ -32,7 +32,7 @@ namespace Grid.Framework
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var mainCam = new GameObject("Camera");
-            MainCamera.AddComponent<Camera>();
+            mainCam.AddComponent<Camera>();
 
             MainCamera = mainCam;
 
@@ -57,7 +57,7 @@ namespace Grid.Framework
             {
                 var comp = obj.GetComponent<Renderable2D>();
                 if (comp == null) continue;
-                _spriteBatch.Draw(comp.Texture, comp.Position, null, Color.White, comp.Rotation, comp.Origin, comp.Scale, SpriteEffects.None, 0);
+                _spriteBatch.Draw(comp.Texture, comp.GameObject.Position, null, Color.White, comp.GameObject.Rotation, comp.Origin, comp.GameObject.Scale, SpriteEffects.None, 0);
             }
             _spriteBatch.End();
 
