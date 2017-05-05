@@ -76,5 +76,14 @@ namespace Grid.Framework
 
         public void Destroy(GameObject gameObject)
             => _gameObjects.Remove(gameObject);
+
+        public GameObject FindGameObjectByName(string name)
+            => _gameObjects.Find(g => g.Name == name);
+
+        public GameObject FindGameObjectByTag(string tag)
+            => _gameObjects.Find(g => g.Tag == tag);
+
+        public GameObject[] FindGameObjectsByTag(string tag)
+            => _gameObjects.FindAll(g => g.Tag == tag).ToArray();
     }
 }

@@ -10,6 +10,7 @@ namespace Grid.Framework
     public class GameObject
     {
         public string Name { get; set; }
+        public string Tag { get; set; }
         public Transform Transform { get; private set; }
         public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
         public Vector2 Scale { get => Transform.Scale; set => Transform.Scale = value; }
@@ -59,5 +60,13 @@ namespace Grid.Framework
         public void RemoveComponents<T>() where T : Component
             => _components.RemoveAll(c => c is T);
 
+        public static GameObject Find(string name)
+            => Scene.CurrentScene.FindGameObjectByName(name);
+
+        public static GameObject FindWithTag(string tag)
+            => Scene.CurrentScene.FindGameObjectByTag(tag);
+
+        public static GameObject[] FindGameObjectsByTag(string tag)
+            => Scene.CurrentScene.FindGameObjectsByTag(tag);
     }
 }
