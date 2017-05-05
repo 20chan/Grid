@@ -44,6 +44,9 @@ namespace Grid
                 GameObject.Transform.Position += new Vector2(-1, 0) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.D))
                 GameObject.Transform.Position += new Vector2(1, 0) * Speed;
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                Destroy(GameObject);
             base.Update();
         }
     }

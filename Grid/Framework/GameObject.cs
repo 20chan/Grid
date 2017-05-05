@@ -16,12 +16,15 @@ namespace Grid.Framework
         public Vector2 Scale { get => Transform.Scale; set => Transform.Scale = value; }
         public float Rotation { get => Transform.Rotation; set => Transform.Rotation = value; }
 
+
         private List<Component> _components;
+        private List<Component> _destroyComponentsQueue;
 
         public GameObject(string name)
         {
             Name = name;
             _components = new List<Component>();
+            _destroyComponentsQueue = new List<Component>();
             Transform = new Transform();
         }
 
@@ -29,10 +32,19 @@ namespace Grid.Framework
             => _components.ForEach(c => c.Start());
 
         public void Update()
-            => _components.ForEach(c => c.Update());
+        {
+            ProcessDestroyQueue();
+            _components.ForEach(c => c.Update());
+        }
 
         public void LateUpdate()
             => _components.ForEach(c => c.LateUpdate());
+
+        public void OnDestroy()
+        {
+            _components.ForEach(c => AddDestroyQueue(c));
+            ProcessDestroyQueue();
+        }
 
         public T AddComponent<T>() where T : Component, new()
         {
@@ -48,6 +60,18 @@ namespace Grid.Framework
             return component;
         }
 
+        public void AddDestroyQueue(Component comp)
+            => _destroyComponentsQueue.Add(comp);
+
+        private void ProcessDestroyQueue()
+        {
+            if (_destroyComponentsQueue.Count > 0)
+                _destroyComponentsQueue.ForEach(c => _components.Remove(c));
+        }
+
+        public Component[] GetAllComponents()
+            => _components.ToArray();
+
         public T GetComponent<T>() where T : Component
             => _components.FirstOrDefault(c => c is T) as T;
 
@@ -55,7 +79,7 @@ namespace Grid.Framework
             => _components.FindAll(c => c is T).ToArray() as T[];
 
         public void RemoveComponent(Component comp)
-            => _components.Remove(comp);
+            => AddDestroyQueue(comp);
 
         public void RemoveComponents<T>() where T : Component
             => _components.RemoveAll(c => c is T);

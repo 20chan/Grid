@@ -9,12 +9,12 @@ namespace Grid.Framework
     public abstract class Component
     {
         public GameObject GameObject { get; set; }
-
-        public virtual void Initialize() { }
-        public virtual void LoadContent() { }
+        
         public virtual void Start() { }
         public virtual void Update() { }
         public virtual void LateUpdate() { }
+
+        public virtual void OnDestroy() { }
 
         public static void Instantiate(GameObject gameObject) => Scene.CurrentScene.Instantiate(gameObject);
 

@@ -20,16 +20,20 @@ namespace Grid.Framework
         protected SpriteBatch _spriteBatch;
 
         private List<GameObject> _gameObjects;
+        private List<Component> _notStartedQueue;
 
         public Scene()
         {
             _gameObjects = new List<GameObject>();
             _graphics = new GraphicsDeviceManager(this);
+
+            _notStartedQueue = new List<Component>();
         }
 
         protected override void Initialize()
         {
             IsMouseVisible = true;
+            CurrentScene = this;
             base.Initialize();
         }
 
@@ -72,10 +76,16 @@ namespace Grid.Framework
         }
 
         public void Instantiate(GameObject gameObject)
-            => _gameObjects.Add(gameObject);
+        {
+            _gameObjects.Add(gameObject);
+            AddStartQueue(gameObject);
+        }
 
         public void Destroy(GameObject gameObject)
-            => _gameObjects.Remove(gameObject);
+        {
+            gameObject.OnDestroy();
+            _gameObjects.Remove(gameObject);
+        }
 
         public GameObject FindGameObjectByName(string name)
             => _gameObjects.Find(g => g.Name == name);
@@ -85,5 +95,11 @@ namespace Grid.Framework
 
         public GameObject[] FindGameObjectsByTag(string tag)
             => _gameObjects.FindAll(g => g.Tag == tag).ToArray();
+
+        public void AddStartQueue(Component comp)
+            => _notStartedQueue.Add(comp);
+
+        public void AddStartQueue(GameObject obj)
+            => _notStartedQueue.AddRange(obj.GetAllComponents());
     }
 }
