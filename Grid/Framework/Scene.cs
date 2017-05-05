@@ -21,6 +21,8 @@ namespace Grid.Framework
 
         private List<GameObject> _gameObjects;
         private List<Component> _notStartedQueue;
+        private List<GameObject> _destroyGameObjectQueue;
+        private List<Component> _destroyComponentQueue;
 
         public Scene()
         {
@@ -28,6 +30,8 @@ namespace Grid.Framework
             _graphics = new GraphicsDeviceManager(this);
 
             _notStartedQueue = new List<Component>();
+            _destroyGameObjectQueue = new List<GameObject>();
+            _destroyComponentQueue = new List<Component>();
         }
 
         protected override void Initialize()
@@ -54,6 +58,16 @@ namespace Grid.Framework
 
         protected override void Update(GameTime gameTime)
         {
+            while (_destroyComponentQueue.Count > 0)
+            {
+                _destroyComponentQueue[0].GameObject.DestroyComponentImmediate(_destroyComponentQueue[0]);
+                _destroyComponentQueue.RemoveAt(0);
+            }
+            while (_destroyGameObjectQueue.Count > 0)
+            {
+                _destroyGameObjectQueue[0].OnDestroy();
+                _destroyGameObjectQueue.RemoveAt(0);
+            }
             _gameObjects.ForEach(o => o.Update());
             _gameObjects.ForEach(o => o.LateUpdate());
             base.Update(gameTime);
@@ -82,10 +96,11 @@ namespace Grid.Framework
         }
 
         public void Destroy(GameObject gameObject)
-        {
-            gameObject.OnDestroy();
-            _gameObjects.Remove(gameObject);
-        }
+            => _destroyGameObjectQueue.Add(gameObject);
+
+        public void Destroy(Component component)
+            => _destroyComponentQueue.Add(component);
+        
 
         public GameObject FindGameObjectByName(string name)
             => _gameObjects.Find(g => g.Name == name);

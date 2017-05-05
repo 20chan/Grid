@@ -22,7 +22,7 @@ namespace Grid.Framework
             => Scene.CurrentScene.Destroy(gameObject);
 
         public void Destroy(Component comp)
-            => this.GameObject.RemoveComponent(comp);
+            => Scene.CurrentScene.Destroy(comp);
     }
 
     public class SingleComponent : Attribute { }
