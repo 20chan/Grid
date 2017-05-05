@@ -27,6 +27,12 @@ namespace Grid.Framework
             _graphics = new GraphicsDeviceManager(this);
         }
 
+        protected override void Initialize()
+        {
+            IsMouseVisible = true;
+            base.Initialize();
+        }
+
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);

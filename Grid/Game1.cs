@@ -33,7 +33,7 @@ namespace Grid
 
     class Movable : Component
     {
-        public float Speed = 1f;
+        public float Speed = 5f;
         public override void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -53,14 +53,23 @@ namespace Grid
         public float Speed = 1f;
         public override void LateUpdate()
         {
+            var cam = GameObject.GetComponent<Camera>();
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                GameObject.GetComponent<Camera>().Position += new Vector2(0, -1) * Speed;
+                cam.Position += new Vector2(0, -1) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                GameObject.GetComponent<Camera>().Position += new Vector2(0, 1) * Speed;
+                cam.Position += new Vector2(0, 1) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                GameObject.GetComponent<Camera>().Position += new Vector2(-1, 0) * Speed;
+                cam.Position += new Vector2(-1, 0) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                GameObject.GetComponent<Camera>().Position += new Vector2(1, 0) * Speed;
+                cam.Position += new Vector2(1, 0) * Speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+                cam.Zoom *= 0.9f;
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+                cam.Zoom *= 1.1f;
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+                cam.Rotation -= 0.1f;
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+                cam.Rotation += 0.1f;
             base.Update();
         }
     }
