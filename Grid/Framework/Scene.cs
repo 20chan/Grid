@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Grid.Framework.Components;
 using Microsoft.Xna.Framework;
@@ -20,18 +20,20 @@ namespace Grid.Framework
         protected SpriteBatch _spriteBatch;
 
         private List<GameObject> _gameObjects;
-        private List<Component> _notStartedQueue;
-        private List<GameObject> _destroyGameObjectQueue;
-        private List<Component> _destroyComponentQueue;
+        private Queue<GameObject> _notStartedGameobject;
+        private Queue<Component> _notStartedQueue;
+        private Queue<GameObject> _destroyGameObjectQueue;
+        private Queue<Component> _destroyComponentQueue;
 
         public Scene()
         {
             _gameObjects = new List<GameObject>();
             _graphics = new GraphicsDeviceManager(this);
 
-            _notStartedQueue = new List<Component>();
-            _destroyGameObjectQueue = new List<GameObject>();
-            _destroyComponentQueue = new List<Component>();
+            _notStartedQueue = new Queue<Component>();
+            _notStartedGameobject = new Queue<GameObject>();
+            _destroyGameObjectQueue = new Queue<GameObject>();
+            _destroyComponentQueue = new Queue<Component>();
         }
 
         protected override void Initialize()
@@ -60,13 +62,20 @@ namespace Grid.Framework
         {
             while (_destroyComponentQueue.Count > 0)
             {
-                _destroyComponentQueue[0].GameObject.DestroyComponentImmediate(_destroyComponentQueue[0]);
-                _destroyComponentQueue.RemoveAt(0);
+                var comp = _destroyComponentQueue.Dequeue();
+                comp.GameObject.DestroyComponentImmediate(comp);
             }
             while (_destroyGameObjectQueue.Count > 0)
             {
-                _destroyGameObjectQueue[0].OnDestroy();
-                _destroyGameObjectQueue.RemoveAt(0);
+                _destroyGameObjectQueue.Dequeue().OnDestroy();
+            }
+            while (_notStartedQueue.Count > 0)
+            {
+                _notStartedQueue.Dequeue().Start();
+            }
+            while (_notStartedGameobject.Count > 0)
+            {
+                _notStartedGameobject.Dequeue().Start();
             }
             _gameObjects.ForEach(o => o.Update());
             _gameObjects.ForEach(o => o.LateUpdate());
@@ -96,12 +105,11 @@ namespace Grid.Framework
         }
 
         public void Destroy(GameObject gameObject)
-            => _destroyGameObjectQueue.Add(gameObject);
+            => _destroyGameObjectQueue.Enqueue(gameObject);
 
         public void Destroy(Component component)
-            => _destroyComponentQueue.Add(component);
+            => _destroyComponentQueue.Enqueue(component);
         
-
         public GameObject FindGameObjectByName(string name)
             => _gameObjects.Find(g => g.Name == name);
 
@@ -112,9 +120,9 @@ namespace Grid.Framework
             => _gameObjects.FindAll(g => g.Tag == tag).ToArray();
 
         public void AddStartQueue(Component comp)
-            => _notStartedQueue.Add(comp);
+            => _notStartedQueue.Enqueue(comp);
 
         public void AddStartQueue(GameObject obj)
-            => _notStartedQueue.AddRange(obj.GetAllComponents());
+            => _notStartedGameobject.Enqueue(obj);
     }
 }

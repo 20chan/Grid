@@ -56,6 +56,7 @@ namespace Grid.Framework
                 GameObject = this
             };
             _components.Add(component);
+            Scene.CurrentScene.AddStartQueue(component);
             return component;
         }
 
