@@ -52,6 +52,7 @@
     <Compile Include="Grid\Blocks\EmptyBlock.cs" />
     <Compile Include="Grid\Editor.cs" />
     <Compile Include="Grid\World.cs" />
+    <Compile Include="MovableCamera.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

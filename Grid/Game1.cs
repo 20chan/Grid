@@ -50,29 +50,5 @@ namespace Grid
         }
     }
 
-    class MovableCamera : Component
-    {
-        public float Speed = 1f;
-        public override void LateUpdate()
-        {
-            var cam = GameObject.GetComponent<Camera>();
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                cam.Position += new Vector2(0, -1) * Speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                cam.Position += new Vector2(0, 1) * Speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                cam.Position += new Vector2(-1, 0) * Speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                cam.Position += new Vector2(1, 0) * Speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
-                cam.Zoom *= 0.9f;
-            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
-                cam.Zoom *= 1.1f;
-            if (Keyboard.GetState().IsKeyDown(Keys.Q))
-                cam.Rotation -= 0.1f;
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-                cam.Rotation += 0.1f;
-            base.Update();
-        }
-    }
+    
 }
