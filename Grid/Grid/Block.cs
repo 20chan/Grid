@@ -19,5 +19,10 @@ namespace Grid.Grid
             get => new Rectangle(X, Y, Width, Height);
             set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
         }
+
+        public Block(int x = -1, int y = -1, int width = -1 , int height = -1)
+        {
+            X = x; Y = y; Width = width; Height = height;
+        }
     }
 }
