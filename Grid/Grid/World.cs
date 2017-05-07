@@ -57,10 +57,11 @@ namespace Grid.Grid
             }
             public override void Draw(SpriteBatch sb)
             {
+                int size = 100;
                 for (int i = 0; i < _world.Width; i++)
-                    sb.Draw(Texture, new Rectangle(0, i, 0, _world.Height), Color.Black);
+                    sb.Draw(Texture, new Rectangle(i * size, 0, 1, _world.Height * size), Color.Black);
                 for (int j = 0; j < _world.Height; j++)
-                    sb.Draw(Texture, new Rectangle(j, 0, _world.Width, 0), Color.Black);
+                    sb.Draw(Texture, new Rectangle(0, j * size, _world.Width * size, 1), Color.Black);
             }
         }
     }

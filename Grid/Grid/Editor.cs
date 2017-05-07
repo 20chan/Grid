@@ -11,11 +11,13 @@ namespace Grid.Grid
     {
         protected override void LoadContent()
         {
+            base.LoadContent();
+
             GameObject panel = new GameObject("Panel");
             panel.AddComponent<World>().SetSize(30, 30);
             Instantiate(panel);
 
-            base.LoadContent();
+            MainCamera.AddComponent<MovableCamera>();
         }
     }
 }
