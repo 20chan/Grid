@@ -89,9 +89,7 @@ namespace Grid.Framework
             _spriteBatch.Begin(transformMatrix: mainCameraComponent.GetTransform(GraphicsDevice));
             foreach (var obj in _gameObjects)
             {
-                var comp = obj.GetComponent<Renderable2D>();
-                if (comp == null) continue;
-                _spriteBatch.Draw(comp.Texture, comp.GameObject.Position, null, Color.White, comp.GameObject.Rotation, comp.Origin, comp.GameObject.Scale, SpriteEffects.None, 0);
+                obj.GetComponent<Renderable2D>()?.Draw(_spriteBatch);
             }
             _spriteBatch.End();
 

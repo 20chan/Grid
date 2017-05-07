@@ -12,5 +12,10 @@ namespace Grid.Framework.Components
     {
         public Texture2D Texture { get; set; }
         public Vector2 Origin { get; set; } = new Vector2();
+
+        public virtual void Draw(SpriteBatch sb)
+        {
+            sb.Draw(Texture, GameObject.Position, null, Color.White, GameObject.Rotation, Origin, GameObject.Scale, SpriteEffects.None, 0);
+        }
     }
 }
