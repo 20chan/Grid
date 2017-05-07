@@ -27,6 +27,8 @@ namespace Grid.Framework
 
         public Scene()
         {
+            Content.RootDirectory = "Content";
+
             _gameObjects = new List<GameObject>();
             _graphics = new GraphicsDeviceManager(this);
 

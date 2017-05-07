@@ -13,7 +13,6 @@ namespace Grid
     {
         public Game1()
         {
-            Content.RootDirectory = "Content";
         }
         
         protected override void LoadContent()
