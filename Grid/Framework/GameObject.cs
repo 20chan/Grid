@@ -27,8 +27,7 @@ namespace Grid.Framework
             Transform = new Transform();
         }
 
-        public void Start()
-            => _components.ForEach(c => c.Start());
+        public void Start() { }
 
         public void Update()
         {
