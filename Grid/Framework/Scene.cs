@@ -16,6 +16,10 @@ namespace Grid.Framework
         public GameObject MainCamera { get => _mainCam; set { _mainCam = value; mainCameraComponent = value.GetComponent<Camera>(); } }
         protected Camera mainCameraComponent;
 
+        private GameObject _guiManager;
+        public GameObject GUIManager { get => _guiManager; set { _guiManager = value; guiManagerComponent = value.GetComponent<GUIManager>(); } }
+        protected GUIManager guiManagerComponent;
+
         protected GraphicsDeviceManager _graphics;
         protected SpriteBatch _spriteBatch;
 
@@ -51,11 +55,14 @@ namespace Grid.Framework
 
             var mainCam = new GameObject("Camera");
             mainCam.AddComponent<Camera>();
-
             MainCamera = mainCam;
-
-            Camera.Current = MainCamera;
             Instantiate(mainCam);
+            Camera.Current = MainCamera;
+
+            var guimanager = new GameObject("GUIManager");
+            guimanager.AddComponent<GUIManager>();
+            GUIManager = guimanager;
+            Instantiate(guimanager);
 
             base.LoadContent();
         }
@@ -79,6 +86,7 @@ namespace Grid.Framework
             {
                 _notStartedGameobject.Dequeue().Start();
             }
+            guiManagerComponent.HandleEvent();
             _gameObjects.ForEach(o => o.Update());
             _gameObjects.ForEach(o => o.LateUpdate());
             base.Update(gameTime);
@@ -89,6 +97,7 @@ namespace Grid.Framework
             GraphicsDevice.Clear(BackColor);
 
             _spriteBatch.Begin(transformMatrix: mainCameraComponent.GetTransform(GraphicsDevice));
+            guiManagerComponent.Draw(_spriteBatch);
             foreach (var obj in _gameObjects)
             {
                 obj.GetComponent<Renderable2D>()?.Draw(_spriteBatch);
@@ -124,5 +133,8 @@ namespace Grid.Framework
 
         public void AddStartQueue(GameObject obj)
             => _notStartedGameobject.Enqueue(obj);
+
+        public static T LoadContent<T>(string assetName)
+            => CurrentScene.Content.Load<T>(assetName);
     }
 }
