@@ -47,6 +47,8 @@
     <Compile Include="Framework\GameObject.cs" />
     <Compile Include="Framework\GUI.cs" />
     <Compile Include="Framework\GUIManager.cs" />
+    <Compile Include="Framework\GUIs\Button.cs" />
+    <Compile Include="Framework\GUIs\Clickable.cs" />
     <Compile Include="Framework\Scene.cs" />
     <Compile Include="Framework\Transform.cs" />
     <Compile Include="Game1.cs" />

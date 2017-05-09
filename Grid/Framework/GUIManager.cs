@@ -9,8 +9,7 @@ namespace Grid.Framework
 {
     public class GUIManager : Component
     {
-        public List<GUI> GUIs { get; set; }
-
+        public List<GUI> GUIs { get; private set; }
         public GUIManager()
         {
             GUIs = new List<GUI>();

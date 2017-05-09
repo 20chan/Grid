@@ -95,9 +95,11 @@ namespace Grid.Framework
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(BackColor);
+            _spriteBatch.Begin();
+            guiManagerComponent.Draw(_spriteBatch); // UI는 카메라와 상관없어야 한다는 전제 하에
+            _spriteBatch.End();
 
             _spriteBatch.Begin(transformMatrix: mainCameraComponent.GetTransform(GraphicsDevice));
-            guiManagerComponent.Draw(_spriteBatch);
             foreach (var obj in _gameObjects)
             {
                 obj.GetComponent<Renderable2D>()?.Draw(_spriteBatch);

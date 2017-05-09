@@ -9,7 +9,7 @@ namespace Grid.Framework
 {
     public class GUI
     {
-        public virtual void Draw() { }
+        public virtual void Draw(SpriteBatch sb) { }
         public virtual void HandleEvent() { }
     }
 }
