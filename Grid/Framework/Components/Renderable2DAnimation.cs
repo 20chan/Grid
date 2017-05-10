@@ -15,6 +15,7 @@ namespace Grid.Framework.Components
         public int Interval = 1;
 
         public bool IsStopped { get; private set; }
+        public bool IsRepeatable { get; set; }
 
         private int _currentFrame = 0;
         private int _currentFrameIndex = 0;
@@ -23,11 +24,14 @@ namespace Grid.Framework.Components
         {
             base.Update();
             if (IsStopped) return;
-
+            
             _currentFrame++;
-            if (_currentFrame == FrameCount * Interval)
+            if (_currentFrame == Interval)
+            {
+                if (_currentFrameIndex++ > FrameCount && IsRepeatable)
+                    _currentFrameIndex = 0;
                 _currentFrame = 0;
-            _currentFrameIndex = _currentFrame / Interval;
+            }
         }
 
         public void Stop()
