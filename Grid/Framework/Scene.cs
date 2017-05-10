@@ -69,7 +69,8 @@ namespace Grid.Framework
 
         protected override void Update(GameTime gameTime)
         {
-            Time.ElapsedGametime = gameTime;
+            Time.ElapsedGameTime = gameTime.ElapsedGameTime;
+            Time.TotalGameTime = gameTime.TotalGameTime;
             while (_destroyComponentQueue.Count > 0)
             {
                 var comp = _destroyComponentQueue.Dequeue();
