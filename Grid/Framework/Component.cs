@@ -8,6 +8,8 @@ namespace Grid.Framework
 {
     public abstract class Component
     {
+        public bool Enabled { get; set; } = true;
+
         public GameObject GameObject { get; set; }
         
         public virtual void Start() { }

@@ -9,6 +9,7 @@ using Grid.Grid.Blocks;
 
 namespace Grid.Grid
 {
+    [SingleComponent]
     public class World : Component
     {
         public Block[,] Panel { get; private set; }

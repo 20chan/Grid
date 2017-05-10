@@ -87,8 +87,8 @@ namespace Grid.Framework
                 _notStartedGameobject.Dequeue().Start();
             }
             guiManagerComponent.HandleEvent();
-            _gameObjects.ForEach(o => o.Update());
-            _gameObjects.ForEach(o => o.LateUpdate());
+            _gameObjects.FindAll(o => o.Enabled).ForEach(o => o.Update());
+            _gameObjects.FindAll(o => o.Enabled).ForEach(o => o.LateUpdate());
             base.Update(gameTime);
         }
 
@@ -102,7 +102,8 @@ namespace Grid.Framework
             _spriteBatch.Begin(transformMatrix: mainCameraComponent.GetTransform(GraphicsDevice));
             foreach (var obj in _gameObjects)
             {
-                obj.GetComponent<Renderable2D>()?.Draw(_spriteBatch);
+                if(obj.Enabled)
+                    obj.GetComponent<Renderable2D>()?.Draw(_spriteBatch);
             }
             _spriteBatch.End();
 

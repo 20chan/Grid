@@ -9,6 +9,8 @@ namespace Grid.Framework
 {
     public class GameObject
     {
+        public bool Enabled { get; set; } = true;
+
         public bool Destroyed { get; private set; } = false;
         public string Name { get; set; }
         public string Tag { get; set; }
@@ -16,8 +18,7 @@ namespace Grid.Framework
         public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
         public Vector2 Scale { get => Transform.Scale; set => Transform.Scale = value; }
         public float Rotation { get => Transform.Rotation; set => Transform.Rotation = value; }
-
-
+        
         private List<Component> _components;
 
         public GameObject(string name)
@@ -30,12 +31,10 @@ namespace Grid.Framework
         public void Start() { }
 
         public void Update()
-        {
-            _components.ForEach(c => c.Update());
-        }
-
+            => _components.FindAll(c => c.Enabled).ForEach(c => c.Update());
+        
         public void LateUpdate()
-            => _components.ForEach(c => c.LateUpdate());
+            => _components.FindAll(c => c.Enabled).ForEach(c => c.LateUpdate());
 
         public void OnDestroy()
         {

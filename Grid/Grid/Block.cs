@@ -7,6 +7,7 @@ using Grid.Framework.Components;
 
 namespace Grid.Grid
 {
+    [SingleComponent]
     public class Block : Component
     {
         public int X { get; set; }

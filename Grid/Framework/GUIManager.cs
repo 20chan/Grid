@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Grid.Framework
 {
+    [SingleComponent]
     public class GUIManager : Component
     {
         public static SpriteFont DefaultFont { get; set; }

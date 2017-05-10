@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Grid.Framework.Components
 {
+    [SingleComponent]
     public class Camera : Component
     {
         public static Object Current;
