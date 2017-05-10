@@ -48,6 +48,11 @@ namespace Grid.Framework.GUIs
             MouseState mouse = Mouse.GetState();
             Point cursor = mouse.Position;
 
+            if (IsMouseEntered) IsMouseEntered = false;
+            if (IsMouseDown) IsMouseDown = false;
+            if (IsMouseUp) IsMouseUp = false;
+            if (IsMouseLeaved) IsMouseLeaved = false;
+
             if (!IsInRect(cursor))
             {
                 if (IsMouseHover) // 막 벗어남
@@ -59,7 +64,6 @@ namespace Grid.Framework.GUIs
                     IsMouseLeaved = false;
 
                 if (IsMouseClicking) IsMouseClicking = false;
-                if (IsMouseDown) IsMouseDown = false;
             }
             else
             {
