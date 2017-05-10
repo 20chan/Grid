@@ -104,7 +104,7 @@ namespace Grid.Framework
             foreach (var obj in _gameObjects)
             {
                 if(obj.Enabled)
-                    obj.GetComponent<Renderable2D>()?.Draw(_spriteBatch);
+                    obj.GetComponent<Renderable>()?.Draw(_spriteBatch);
             }
             _spriteBatch.End();
 
