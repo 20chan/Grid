@@ -9,6 +9,7 @@ namespace Grid.Framework
 {
     public class GUIManager : Component
     {
+        public static SpriteFont DefaultFont { get; set; }
         public List<GUI> GUIs { get; private set; }
         public GUIManager()
         {
@@ -17,7 +18,7 @@ namespace Grid.Framework
             if(GUI.DummyTexture == null)
             {
                 GUI.DummyTexture = new Texture2D(Scene.CurrentScene.GraphicsDevice, 1, 1);
-                GUI.DummyTexture.SetData(new Color[] { Color.Black });
+                GUI.DummyTexture.SetData(new Color[] { Color.White });
             }
         }
 

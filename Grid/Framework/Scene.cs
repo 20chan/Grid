@@ -17,7 +17,7 @@ namespace Grid.Framework
         protected Camera mainCameraComponent;
 
         private GameObject _guiManager;
-        public GameObject GUIManager { get => _guiManager; set { _guiManager = value; guiManagerComponent = value.GetComponent<GUIManager>(); } }
+        public GameObject GuiManager { get => _guiManager; set { _guiManager = value; guiManagerComponent = value.GetComponent<GUIManager>(); } }
         protected GUIManager guiManagerComponent;
 
         protected GraphicsDeviceManager _graphics;
@@ -61,7 +61,7 @@ namespace Grid.Framework
 
             var guimanager = new GameObject("GUIManager");
             guimanager.AddComponent<GUIManager>();
-            GUIManager = guimanager;
+            GuiManager = guimanager;
             Instantiate(guimanager);
 
             base.LoadContent();
