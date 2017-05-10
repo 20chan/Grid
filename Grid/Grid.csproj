@@ -43,13 +43,16 @@
   <ItemGroup>
     <Compile Include="Framework\Component.cs" />
     <Compile Include="Framework\Components\Camera.cs" />
+    <Compile Include="Framework\Components\Renderable.cs" />
     <Compile Include="Framework\Components\Renderable2D.cs" />
+    <Compile Include="Framework\Components\Renderable2DAnimation.cs" />
     <Compile Include="Framework\GameObject.cs" />
     <Compile Include="Framework\GUI.cs" />
     <Compile Include="Framework\GUIManager.cs" />
     <Compile Include="Framework\GUIs\Button.cs" />
     <Compile Include="Framework\GUIs\Clickable.cs" />
     <Compile Include="Framework\Scene.cs" />
+    <Compile Include="Framework\Time.cs" />
     <Compile Include="Framework\Transform.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Grid\Block.cs" />
