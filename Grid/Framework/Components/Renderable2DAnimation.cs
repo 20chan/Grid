@@ -14,17 +14,27 @@ namespace Grid.Framework.Components
         public int FrameCount => Textures.Length;
         public int Interval = 1;
 
+        public bool IsStopped { get; private set; }
+
         private int _currentFrame = 0;
         private int _currentFrameIndex = 0;
         
         public override void Update()
         {
             base.Update();
+            if (IsStopped) return;
+
             _currentFrame++;
             if (_currentFrame == FrameCount * Interval)
                 _currentFrame = 0;
             _currentFrameIndex = _currentFrame / Interval;
         }
+
+        public void Stop()
+            => IsStopped = true;
+
+        public void Resume()
+            => IsStopped = false;
 
         public override void Draw(SpriteBatch sb)
         {

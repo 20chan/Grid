@@ -4,6 +4,6 @@ namespace Grid.Framework
 {
     public static class Time
     {
-        public static GameTime ElapsedGametime;
+        public static GameTime ElapsedGametime = new GameTime();
     }
 }
