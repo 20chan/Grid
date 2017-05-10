@@ -13,18 +13,24 @@ namespace Grid.Framework
         public GUIManager()
         {
             GUIs = new List<GUI>();
+
+            if(GUI.DummyTexture == null)
+            {
+                GUI.DummyTexture = new Texture2D(Scene.CurrentScene.GraphicsDevice, 1, 1);
+                GUI.DummyTexture.SetData(new Color[] { Color.Black });
+            }
         }
 
         public void Draw(SpriteBatch sb)
         {
             // TODO: GUI 그리기 (..)
-            throw new NotImplementedException();
+            GUIs.ForEach(g => g.Draw(sb));
         }
 
         public void HandleEvent()
         {
             // TODO: 버튼을 클릭했는지 텍스트박스에 입력했는지 등의 각 GUI들의 모든 이벤트 처리
-            throw new NotImplementedException();
+            GUIs.ForEach(g => g.HandleEvent());
         }
     }
 }

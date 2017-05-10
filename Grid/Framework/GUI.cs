@@ -11,5 +11,7 @@ namespace Grid.Framework
     {
         public virtual void Draw(SpriteBatch sb) { }
         public virtual void HandleEvent() { }
+
+        public static Texture2D DummyTexture;
     }
 }

@@ -15,14 +15,17 @@ namespace Grid.Framework.GUIs
         public Color BorderColor { get; set; } = Color.Black;
         public Color Color { get; set; } = Color.White;
 
+        public string Text { get; set; }
+
         public float X { get; set; } = -1;
         public float Y { get; set; } = -1;
         public float Width { get; set; } = -1;
         public float Height { get; set; } = -1;
 
-        public Button(float x, float y, float width, float height)
+        public Button(float x, float y, float width, float height, string text)
         {
             X = x; Y = y; Width = width; Height = height;
+            Text = text;
         }
 
         public override bool IsInRect(Point point)
@@ -31,7 +34,7 @@ namespace Grid.Framework.GUIs
 
         public override void Draw(SpriteBatch sb)
         {
-            throw new NotImplementedException();
+            sb.Draw(DummyTexture, new Rectangle((int)X, (int)Y, (int)Width, (int)Height), Color);
             base.Draw(sb);
         }
     }

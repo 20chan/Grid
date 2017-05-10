@@ -57,6 +57,9 @@ namespace Grid.Framework.GUIs
                 }
                 else if (IsMouseLeaved)
                     IsMouseLeaved = false;
+
+                if (IsMouseClicking) IsMouseClicking = false;
+                if (IsMouseDown) IsMouseDown = false;
             }
             else
             {
@@ -82,10 +85,6 @@ namespace Grid.Framework.GUIs
                     IsMouseClicking = false;
 
                 MouseWheel = mouse.ScrollWheelValue;
-            }
-            if(mouse.LeftButton == ButtonState.Released)
-            {
-                if (IsMouseClicking) IsMouseClicking = false;
             }
         }
 
