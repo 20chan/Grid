@@ -17,7 +17,8 @@ namespace Grid.Framework
                 if (GameObject.Parent == null) return Position;
 
                 var length = Position.Length();
-                var abs = new Vector2((float)Math.Sin(GameObject.Parent.AbsoluteRotation) * length, -(float)Math.Cos(GameObject.Parent.AbsoluteRotation) * length);
+                var abs = new Vector2((float)Math.Sin(Math.Atan2(Position.Y, Position.X) + GameObject.Parent.AbsoluteRotation) * length,
+                    -(float)Math.Cos(Math.Atan2(Position.Y, Position.X) + GameObject.Parent.AbsoluteRotation) * length);
 
                 return GameObject.Parent.AbsolutePosition + GameObject.Parent.AbsoluteScale * abs;
             }
