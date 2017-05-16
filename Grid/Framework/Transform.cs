@@ -10,8 +10,8 @@ namespace Grid.Framework
     public class Transform
     {
         public GameObject GameObject { get; set; }
-        public Vector2 AbsolutePosition { get; set; }
-        public Vector2 AbsoluteScale { get; set; }
+        public Vector2 AbsolutePosition { get; set; } = new Vector2(0, 0);
+        public Vector2 AbsoluteScale { get; set; } = new Vector2(1, 1);
         public float AbsoluteRotation { get; set; }
 
         /// <summary>

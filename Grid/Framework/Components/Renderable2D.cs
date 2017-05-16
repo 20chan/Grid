@@ -10,8 +10,13 @@ namespace Grid.Framework.Components
     [SingleComponent]
     public class Renderable2D : Renderable
     {
-        public Texture2D Texture { get; set; }
-        public Vector2 Origin { get; set; } = new Vector2();
+        private Texture2D _texture;
+        public Texture2D Texture
+        {
+            get => _texture;
+            set { _texture = value; Origin = new Vector2(value.Width / 2, value.Height / 2); }
+        }
+        public Vector2 Origin { get; set; }
 
         public override void Draw(SpriteBatch sb)
         {

@@ -32,6 +32,7 @@ namespace Grid.Framework
             Parent?.Childs.Add(this);
             _components = new List<Component>();
             Transform = new Transform(this);
+            Transform.Scale = new Vector2(1, 1);
         }
 
         public void Start() { }

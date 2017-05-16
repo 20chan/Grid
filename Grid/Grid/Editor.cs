@@ -11,35 +11,45 @@ namespace Grid.Grid
 {
     public class Editor : Scene
     {
-        Button btn;
+        Button fastBtn, slowBtn;
         protected override void LoadContent()
         {
             base.LoadContent();
 
             GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
 
-            btn = new Button(10, 10, 300, 200, "yeah") {
+            fastBtn = new Button(10, 10, 100, 100, "FASTER")
+            {
                 Border = 2,
-                Color = Color.GreenYellow,
-                BorderColor = Color.HotPink
             };
-            CurrentScene.GuiManager.GetComponent<GUIManager>().GUIs.Add(btn);
+            slowBtn = new Button(120, 10, 100, 100, "SLOWER")
+            {
+                Border = 2
+            };
+            CurrentScene.GuiManager.GetComponent<GUIManager>().GUIs.Add(fastBtn);
+            CurrentScene.GuiManager.GetComponent<GUIManager>().GUIs.Add(slowBtn);
 
-            GameObject panel = new GameObject("Panel");
+            /*GameObject panel = new GameObject("Panel");
             panel.AddComponent<World>().SetSize(30, 30);
-            Instantiate(panel);
+            Instantiate(panel);*/
+
+            GameObject hos = new GameObject("hos");
+            hos.Position = new Vector2(10, 10);
+            hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
+            Instantiate(hos);
 
             MainCamera.AddComponent<MovableCamera>();
         }
 
+        float speed = 0.05f;
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (btn.IsMouseClicking)
-            {
-                // btn.X += 10;
-                btn.TextRotation += 0.1f;
-            }
+            if (fastBtn.IsMouseDown)
+                speed += 0.05f;
+            if (slowBtn.IsMouseDown)
+                speed -= 0.05f;
+            GameObject.Find("hos").Rotation += speed;
         }
     }
 }
