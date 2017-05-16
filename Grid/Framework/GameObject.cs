@@ -11,6 +11,9 @@ namespace Grid.Framework
     {
         public bool Enabled { get; set; } = true;
 
+        public GameObject Parent { get; set; }
+        public List<GameObject> Childs { get; private set; }
+
         public bool Destroyed { get; private set; } = false;
         public string Name { get; set; }
         public string Tag { get; set; }
@@ -21,11 +24,14 @@ namespace Grid.Framework
         
         private List<Component> _components;
 
-        public GameObject(string name)
+        public GameObject(string name, GameObject parent = null)
         {
+            Childs = new List<GameObject>();
             Name = name;
+            Parent = parent;
+            Parent?.Childs.Add(this);
             _components = new List<Component>();
-            Transform = new Transform();
+            Transform = new Transform(this);
         }
 
         public void Start() { }
