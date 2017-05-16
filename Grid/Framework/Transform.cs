@@ -19,7 +19,7 @@ namespace Grid.Framework
                 var length = Position.Length();
                 var abs = new Vector2((float)Math.Sin(GameObject.Parent.AbsoluteRotation) * length, -(float)Math.Cos(GameObject.Parent.AbsoluteRotation) * length);
 
-                return GameObject.Parent.AbsolutePosition + Position + GameObject.Parent.AbsoluteScale * abs;
+                return GameObject.Parent.AbsolutePosition + GameObject.Parent.AbsoluteScale * abs;
             }
         }
         public Vector2 AbsoluteScale
