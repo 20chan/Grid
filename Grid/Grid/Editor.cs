@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Grid.Framework;
 using Grid.Framework.Components;
 using Grid.Framework.GUIs;
@@ -64,6 +65,11 @@ namespace Grid.Grid
             }
             GameObject.Find("hos").Rotation += speed;
             foreach(var g in GameObject.FindGameObjectsByTag("little_hos")) g.Rotation += 0.1f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.I))
+                GameObject.Find("hos").Scale *= 1.1f;
+            if (Keyboard.GetState().IsKeyDown(Keys.O))
+                GameObject.Find("hos").Scale *= 0.9f;
         }
     }
 }
