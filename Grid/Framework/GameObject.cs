@@ -21,6 +21,10 @@ namespace Grid.Framework
         public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
         public Vector2 Scale { get => Transform.Scale; set => Transform.Scale = value; }
         public float Rotation { get => Transform.Rotation; set => Transform.Rotation = value; }
+
+        public Vector2 AbsolutePosition => Transform.AbsolutePosition;
+        public Vector2 AbsoluteScale => Transform.AbsoluteScale;
+        public float AbsoluteRotation => Transform.AbsoluteRotation;
         
         private List<Component> _components;
 
@@ -32,7 +36,6 @@ namespace Grid.Framework
             Parent?.Childs.Add(this);
             _components = new List<Component>();
             Transform = new Transform(this);
-            Transform.Scale = new Vector2(1, 1);
         }
 
         public void Start() { }

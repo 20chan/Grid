@@ -34,22 +34,36 @@ namespace Grid.Grid
             Instantiate(panel);*/
 
             GameObject hos = new GameObject("hos");
-            hos.Position = new Vector2(10, 10);
+            hos.Position = new Vector2(0, 0);
             hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
             Instantiate(hos);
 
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject little_hos = new GameObject($"little_hos{i}", hos) { Tag = "little_hos" };
+                little_hos.Position = new Vector2(100 * (float)Math.Sin(Math.PI * i / 3 * 2), - 100 * (float)Math.Cos(Math.PI * i / 3 * 2));
+                little_hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
+                little_hos.Scale = new Vector2(0.5f, 0.5f);
+                Instantiate(little_hos);
+            }
             MainCamera.AddComponent<MovableCamera>();
         }
-
+        
         float speed = 0.05f;
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            var r = GameObject.Find("hos").Rotation;
             if (fastBtn.IsMouseDown)
+            {
                 speed += 0.05f;
+            }
             if (slowBtn.IsMouseDown)
+            {
                 speed -= 0.05f;
+            }
             GameObject.Find("hos").Rotation += speed;
+            foreach(var g in GameObject.FindGameObjectsByTag("little_hos")) g.Rotation += 0.1f;
         }
     }
 }
