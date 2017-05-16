@@ -13,10 +13,13 @@ namespace Grid.Grid
     public class Editor : Scene
     {
         Button fastBtn, slowBtn;
+        BasicEffect effect;
         protected override void LoadContent()
         {
             base.LoadContent();
-
+            effect = new BasicEffect(GraphicsDevice);
+            effect.VertexColorEnabled = true;
+            
             GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
 
             fastBtn = new Button(10, 10, 100, 100, "FASTER")
@@ -55,13 +58,13 @@ namespace Grid.Grid
         {
             base.Update(gameTime);
             var r = GameObject.Find("hos").Rotation;
-            if (fastBtn.IsMouseDown)
+            if (fastBtn.IsMouseClicking)
             {
-                speed += 0.05f;
+                speed += 0.001f;
             }
-            if (slowBtn.IsMouseDown)
+            if (slowBtn.IsMouseClicking)
             {
-                speed -= 0.05f;
+                speed -= 0.001f;
             }
             GameObject.Find("hos").Rotation += speed;
             foreach(var g in GameObject.FindGameObjectsByTag("little_hos")) g.Rotation += 0.1f;
@@ -70,6 +73,14 @@ namespace Grid.Grid
                 GameObject.Find("hos").Scale *= 1.1f;
             if (Keyboard.GetState().IsKeyDown(Keys.O))
                 GameObject.Find("hos").Scale *= 0.9f;
+            Window.Title = Mouse.GetState().Position.ToString();
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            effect.CurrentTechnique.Passes[0].Apply();
+            GUI.DrawLine(GraphicsDevice, new Vector2(0, 0), new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y), 0.1f, Color.White);
         }
     }
 }
