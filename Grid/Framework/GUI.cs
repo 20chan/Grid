@@ -11,7 +11,7 @@ namespace Grid.Framework
     {
         public virtual void Draw(SpriteBatch sb) { }
         public virtual void HandleEvent() { }
-        
+
         public static Texture2D DummyTexture;
 
         public static void DrawString(SpriteBatch sb, SpriteFont font, string text, Alignment align, Rectangle bound, Color color, float rotation)
@@ -35,19 +35,30 @@ namespace Grid.Framework
             sb.DrawString(font, text, new Vector2(pos.X, pos.Y), color, rotation, origin, 1, SpriteEffects.None, 0);
         }
 
-        public static void DrawLine(GraphicsDevice gd, Vector2 p1, Vector2 p2, float bold, Color color)
+        public static void DrawLine(SpriteBatch sb, Vector2 p1, Vector2 p2, float border, Color color)
         {
-            var vertices = new VertexPositionColor[4];
-            vertices[0].Position = new Vector3(p1.X, p1.Y, 0);
-            vertices[0].Color = color;
-            vertices[1].Position = new Vector3(p2.X, p1.Y, 0);
-            vertices[1].Color = color;
-            vertices[2].Position = new Vector3(p2.X, p2.Y, 0);
-            vertices[2].Color = color;
-            vertices[3].Position = new Vector3(p1.X, p2.Y, 0);
-            vertices[3].Color = color;
-            gd.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 2);
+            float angle = (float)Math.Atan2((p2 - p1).Y, (p2 - p1).X);
+            sb.Draw(DummyTexture, new Rectangle((int)(p1.X - border / 2), (int)(p1.Y - border / 2), (int)((p2 - p1).Length() + border / 2), (int)(border / 2)), null, color, angle, new Vector2(), SpriteEffects.None, 0);
         }
+
+        public static void DrawLine(SpriteBatch sb, Point p1, Point p2, int border, Color color)
+            => DrawLine(sb, p1.ToVector2(), p2.ToVector2(), border, color);
+
+        public static void DrawRectangle(SpriteBatch sb, Rectangle rect, int border, Color color)
+        {
+            sb.Draw(DummyTexture, new Rectangle(rect.X, rect.Y, border, rect.Height + border), color);
+            sb.Draw(DummyTexture, new Rectangle(rect.X, rect.Y, rect.Width + border, border), color);
+            sb.Draw(DummyTexture, new Rectangle(rect.X + rect.Width, rect.Y, border, rect.Height + border), color);
+            sb.Draw(DummyTexture, new Rectangle(rect.X, rect.Y + rect.Height, rect.Width + border, border), color);
+        }
+
+        public static void DrawRectangle(SpriteBatch sb, Point p1, Point p2, int border, Color color)
+            => DrawRectangle(sb, RectExtended.FromPoints(p1, p2), border, color);
+
+        public static void FillRectangle(SpriteBatch sb, Rectangle rect, Color color)
+            => sb.Draw(DummyTexture, rect, color);
+        public static void FillRectangle(SpriteBatch sb, Point p1, Point p2, Color color)
+            => FillRectangle(sb, RectExtended.FromPoints(p1, p2), color);
     }
 
     [Flags]

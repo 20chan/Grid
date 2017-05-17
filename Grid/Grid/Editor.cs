@@ -19,7 +19,7 @@ namespace Grid.Grid
             base.LoadContent();
             effect = new BasicEffect(GraphicsDevice);
             effect.VertexColorEnabled = true;
-            
+
             GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
 
             fastBtn = new Button(10, 10, 100, 100, "FASTER")
@@ -45,14 +45,14 @@ namespace Grid.Grid
             for (int i = 0; i < 3; i++)
             {
                 GameObject little_hos = new GameObject($"little_hos{i}", hos) { Tag = "little_hos" };
-                little_hos.Position = new Vector2(100 * (float)Math.Sin(Math.PI * i / 3 * 2), - 100 * (float)Math.Cos(Math.PI * i / 3 * 2));
+                little_hos.Position = new Vector2(100 * (float)Math.Sin(Math.PI * i / 3 * 2), -100 * (float)Math.Cos(Math.PI * i / 3 * 2));
                 little_hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
                 little_hos.Scale = new Vector2(0.5f, 0.5f);
                 Instantiate(little_hos);
             }
             MainCamera.AddComponent<MovableCamera>();
         }
-        
+
         float speed = 0.05f;
         protected override void Update(GameTime gameTime)
         {
@@ -67,7 +67,7 @@ namespace Grid.Grid
                 speed -= 0.001f;
             }
             GameObject.Find("hos").Rotation += speed;
-            foreach(var g in GameObject.FindGameObjectsByTag("little_hos")) g.Rotation += 0.1f;
+            foreach (var g in GameObject.FindGameObjectsByTag("little_hos")) g.Rotation += 0.1f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.I))
                 GameObject.Find("hos").Scale *= 1.1f;
@@ -80,7 +80,10 @@ namespace Grid.Grid
         {
             base.Draw(gameTime);
             effect.CurrentTechnique.Passes[0].Apply();
-            GUI.DrawLine(GraphicsDevice, new Vector2(0, 0), new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y), 0.1f, Color.White);
+
+            _spriteBatch.Begin();
+            GUI.DrawLine(_spriteBatch, new Point(200, 400), Mouse.GetState().Position, 10, Color.White);
+            _spriteBatch.End();
         }
     }
 }
