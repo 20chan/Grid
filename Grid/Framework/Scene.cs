@@ -35,12 +35,15 @@ namespace Grid.Framework
 
             _gameObjects = new List<GameObject>();
             _graphics = new GraphicsDeviceManager(this);
+            InitSize();
 
             _notStartedQueue = new Queue<Component>();
             _notStartedGameobject = new Queue<GameObject>();
             _destroyGameObjectQueue = new Queue<GameObject>();
             _destroyComponentQueue = new Queue<Component>();
         }
+
+        protected virtual void InitSize() { }
 
         protected override void Initialize()
         {

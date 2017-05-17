@@ -13,13 +13,14 @@ namespace Grid.Grid
     public class Editor : Scene
     {
         Button fastBtn, slowBtn;
-        BasicEffect effect;
+        protected override void InitSize()
+        {
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+        }
         protected override void LoadContent()
         {
             base.LoadContent();
-            effect = new BasicEffect(GraphicsDevice);
-            effect.VertexColorEnabled = true;
-
             GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
 
             fastBtn = new Button(10, 10, 100, 100, "FASTER")
@@ -79,7 +80,6 @@ namespace Grid.Grid
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            effect.CurrentTechnique.Passes[0].Apply();
         }
     }
 }
