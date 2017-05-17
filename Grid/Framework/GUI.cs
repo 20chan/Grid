@@ -61,7 +61,7 @@ namespace Grid.Framework
             float angle = (float)Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
             float length = Vector2.Distance(p1, p2);
             var scale = new Vector2(length, border);
-            sb.Draw(DummyTexture, position: p1, rotation: angle, scale: scale, color: color);
+            sb.Draw(DummyTexture, p1, null, color, angle, new Vector2(), scale, SpriteEffects.None, 0);
         }
 
         public static void DrawLine(SpriteBatch sb, Point p1, Point p2, int border, Color color)
@@ -80,6 +80,7 @@ namespace Grid.Framework
 
         public static void FillRectangle(SpriteBatch sb, Rectangle rect, Color color)
             => sb.Draw(DummyTexture, rect, color);
+
         public static void FillRectangle(SpriteBatch sb, Point p1, Point p2, Color color)
             => FillRectangle(sb, RectExtended.FromPoints(p1, p2), color);
 
@@ -104,9 +105,10 @@ namespace Grid.Framework
             => DrawCircle(sb, center.ToVector2(), radius, border, color, sides);
 
         public static void DrawCircle(SpriteBatch sb, Vector2 center, float radius, float border, Color color, int sides)
-        {
-            DrawVertices(sb, center, circleVertices(radius, sides), border, color);
-        }
+            => DrawVertices(sb, center, circleVertices(radius, sides), border, color);
+
+        public static void DrawPoint(SpriteBatch sb, Vector2 point, float border, Color color)
+            => sb.Draw(DummyTexture, point + new Vector2(0.5f) - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
     }
 
     [Flags]

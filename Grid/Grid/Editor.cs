@@ -42,10 +42,10 @@ namespace Grid.Grid
             hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
             Instantiate(hos);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 GameObject little_hos = new GameObject($"little_hos{i}", hos) { Tag = "little_hos" };
-                little_hos.Position = new Vector2(100 * (float)Math.Sin(Math.PI * i / 3 * 2), -100 * (float)Math.Cos(Math.PI * i / 3 * 2));
+                little_hos.Position = new Vector2(150 * (float)Math.Sin(Math.PI * i / 6 * 2), -150 * (float)Math.Cos(Math.PI * i / 6 * 2));
                 little_hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
                 little_hos.Scale = new Vector2(0.5f, 0.5f);
                 Instantiate(little_hos);
