@@ -82,7 +82,6 @@ namespace Grid.Grid
             effect.CurrentTechnique.Passes[0].Apply();
 
             _spriteBatch.Begin();
-            GUI.DrawLine(_spriteBatch, new Point(200, 400), Mouse.GetState().Position, 10, Color.White);
             _spriteBatch.End();
         }
     }

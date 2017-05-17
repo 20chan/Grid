@@ -21,10 +21,10 @@ namespace Grid.Framework.GUIs
         public float TextRotation { get; set; } = 0f;
         public string Text { get; set; }
 
-        public float X { get; set; } = -1;
-        public float Y { get; set; } = -1;
-        public float Width { get; set; } = -1;
-        public float Height { get; set; } = -1;
+        public int X { get; set; } = -1;
+        public int Y { get; set; } = -1;
+        public int Width { get; set; } = -1;
+        public int Height { get; set; } = -1;
 
         public Rectangle Rect
         {
@@ -32,7 +32,7 @@ namespace Grid.Framework.GUIs
             set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
         }
 
-        public Button(float x, float y, float width, float height, string text)
+        public Button(int x, int y, int width, int height, string text)
         {
             X = x; Y = y; Width = width; Height = height;
             Text = text;
@@ -45,8 +45,8 @@ namespace Grid.Framework.GUIs
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(DummyTexture, new Rectangle((int)X - Border, (int)Y - Border, (int)Width + Border * 2, (int)Height + Border * 2), BorderColor);
-            sb.Draw(DummyTexture, new Rectangle((int)X, (int)Y, (int)Width, (int)Height), Color);
+            GUI.FillRectangle(sb, new Rectangle(X - Border, Y - Border, Width + Border * 2, Height + Border * 2), BorderColor);
+            GUI.FillRectangle(sb, new Rectangle(X, Y, Width, Height), Color);
             DrawString(sb, Font, Text, TextAlignment, new Rectangle((int)X, (int)Y, (int)Width, (int)Height), TextColor, TextRotation);
             base.Draw(sb);
         }
