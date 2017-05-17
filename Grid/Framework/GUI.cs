@@ -38,7 +38,7 @@ namespace Grid.Framework
         public static void DrawLine(SpriteBatch sb, Vector2 p1, Vector2 p2, float border, Color color)
         {
             float angle = (float)Math.Atan2((p2 - p1).Y, (p2 - p1).X);
-            sb.Draw(DummyTexture, new Rectangle((int)(p1.X - border / 2), (int)(p1.Y - border / 2), (int)((p2 - p1).Length() + border / 2), (int)(border / 2)), null, color, angle, new Vector2(), SpriteEffects.None, 0);
+            sb.Draw(DummyTexture, new Rectangle((int)(p1.X), (int)(p1.Y), (int)((p2 - p1).Length() + border), (int)(border)), null, color, angle, new Vector2(), SpriteEffects.None, 0);
         }
 
         public static void DrawLine(SpriteBatch sb, Point p1, Point p2, int border, Color color)
