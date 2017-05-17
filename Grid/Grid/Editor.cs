@@ -80,9 +80,6 @@ namespace Grid.Grid
         {
             base.Draw(gameTime);
             effect.CurrentTechnique.Passes[0].Apply();
-
-            _spriteBatch.Begin();
-            _spriteBatch.End();
         }
     }
 }

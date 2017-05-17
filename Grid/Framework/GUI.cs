@@ -12,7 +12,19 @@ namespace Grid.Framework
         public virtual void Draw(SpriteBatch sb) { }
         public virtual void HandleEvent() { }
 
-        public static Texture2D DummyTexture;
+        private static Texture2D _dummyTexture;
+        public static Texture2D DummyTexture
+        {
+            get
+            {
+                if (_dummyTexture == null)
+                {
+                    _dummyTexture = new Texture2D(Scene.CurrentScene.GraphicsDevice, 1, 1);
+                    _dummyTexture.SetData(new[] { Color.White });
+                }
+                return _dummyTexture;
+            }
+        }
 
         public static void DrawString(SpriteBatch sb, SpriteFont font, string text, Alignment align, Rectangle bound, Color color, float rotation)
         {
@@ -35,10 +47,21 @@ namespace Grid.Framework
             sb.DrawString(font, text, new Vector2(pos.X, pos.Y), color, rotation, origin, 1, SpriteEffects.None, 0);
         }
 
+        public static void DrawVertices(SpriteBatch sb, Vector2 position, Vector2[] vertices, float border, Color color)
+        {
+            for (int i = 0; i < vertices.Length - 1; i++)
+            {
+                DrawLine(sb, vertices[i] + position, vertices[i + 1] + position, border, color);
+            }
+            DrawLine(sb, vertices.Last() + position, vertices.First() + position, border, color);
+        }
+
         public static void DrawLine(SpriteBatch sb, Vector2 p1, Vector2 p2, float border, Color color)
         {
-            float angle = (float)Math.Atan2((p2 - p1).Y, (p2 - p1).X);
-            sb.Draw(DummyTexture, new Rectangle((int)(p1.X), (int)(p1.Y), (int)((p2 - p1).Length() + border), (int)(border)), null, color, angle, new Vector2(), SpriteEffects.None, 0);
+            float angle = (float)Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
+            float length = Vector2.Distance(p1, p2);
+            var scale = new Vector2(length, border);
+            sb.Draw(DummyTexture, position: p1, rotation: angle, scale: scale, color: color);
         }
 
         public static void DrawLine(SpriteBatch sb, Point p1, Point p2, int border, Color color)
@@ -59,6 +82,31 @@ namespace Grid.Framework
             => sb.Draw(DummyTexture, rect, color);
         public static void FillRectangle(SpriteBatch sb, Point p1, Point p2, Color color)
             => FillRectangle(sb, RectExtended.FromPoints(p1, p2), color);
+
+        private static Vector2[] circleVertices(float radius, int sides)
+        {
+            // https://github.com/craftworkgames/MonoGame.Extended/blob/develop/Source/MonoGame.Extended/ShapeExtensions.cs#L271
+            const double max = 2.0 * Math.PI;
+            var points = new Vector2[sides];
+            var step = max / sides;
+            var theta = 0.0;
+
+            for (var i = 0; i < sides; i++)
+            {
+                points[i] = new Vector2((float)(radius * Math.Cos(theta)), (float)(radius * Math.Sin(theta)));
+                theta += step;
+            }
+
+            return points;
+        }
+
+        public static void DrawCircle(SpriteBatch sb, Point center, float radius, float border, Color color, int sides)
+            => DrawCircle(sb, center.ToVector2(), radius, border, color, sides);
+
+        public static void DrawCircle(SpriteBatch sb, Vector2 center, float radius, float border, Color color, int sides)
+        {
+            DrawVertices(sb, center, circleVertices(radius, sides), border, color);
+        }
     }
 
     [Flags]

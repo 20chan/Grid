@@ -15,12 +15,6 @@ namespace Grid.Framework
         public GUIManager()
         {
             GUIs = new List<GUI>();
-
-            if(GUI.DummyTexture == null)
-            {
-                GUI.DummyTexture = new Texture2D(Scene.CurrentScene.GraphicsDevice, 1, 1);
-                GUI.DummyTexture.SetData(new Color[] { Color.White });
-            }
         }
 
         public void Draw(SpriteBatch sb)
