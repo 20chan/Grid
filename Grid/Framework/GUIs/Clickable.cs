@@ -86,7 +86,11 @@ namespace Grid.Framework.GUIs
                         IsMouseDown = false;
                 }
                 else if (IsMouseClicking)
+                {
                     IsMouseClicking = false;
+                    IsMouseUp = true;
+                }
+
 
                 MouseWheel = mouse.ScrollWheelValue;
             }

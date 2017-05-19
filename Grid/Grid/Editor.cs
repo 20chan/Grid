@@ -58,6 +58,10 @@ namespace Grid.Grid
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if(fastBtn.IsMouseUp)
+            {
+
+            }
             var r = GameObject.Find("hos").Rotation;
             if (fastBtn.IsMouseClicking)
             {
