@@ -13,6 +13,7 @@ namespace Grid.Grid
     public class Editor : Scene
     {
         Button fastBtn, slowBtn;
+        Texture2D hosTexture;
         protected override void InitSize()
         {
             _graphics.PreferredBackBufferWidth = 1280;
@@ -22,6 +23,7 @@ namespace Grid.Grid
         {
             base.LoadContent();
             GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
+            hosTexture = LoadContent<Texture2D>("hos");
 
             fastBtn = new Button(10, 10, 100, 100, "FASTER")
             {
@@ -37,32 +39,23 @@ namespace Grid.Grid
             /*GameObject panel = new GameObject("Panel");
             panel.AddComponent<World>().SetSize(30, 30);
             Instantiate(panel);*/
-
-            GameObject hos = new GameObject("hos");
-            hos.Position = new Vector2(0, 0);
-            hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
-            Instantiate(hos);
-
-            for (int i = 0; i < 6; i++)
-            {
-                GameObject little_hos = new GameObject($"little_hos{i}", hos) { Tag = "little_hos" };
-                little_hos.Position = new Vector2(150 * (float)Math.Sin(Math.PI * i / 6 * 2), -150 * (float)Math.Cos(Math.PI * i / 6 * 2));
-                little_hos.AddComponent<Renderable2D>().Texture = LoadContent<Texture2D>("hos");
-                little_hos.Scale = new Vector2(0.5f, 0.5f);
-                Instantiate(little_hos);
-            }
             MainCamera.AddComponent<MovableCamera>();
         }
 
         float speed = 0.05f;
+        bool mouseDown = false;
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(fastBtn.IsMouseUp)
+            if(Mouse.GetState().LeftButton == ButtonState.Pressed && !mouseDown && !IsAnyGUIUseMouse)
             {
+                mouseDown = true;
+                GameObject o = new GameObject("hos") { Tag = "hos" };
 
+                o.AddComponent<Renderable2D>().Texture = hosTexture;
+                Instantiate(o);
             }
-            var r = GameObject.Find("hos").Rotation;
+            if (Mouse.GetState().LeftButton == ButtonState.Released) mouseDown = false;
             if (fastBtn.IsMouseClicking)
             {
                 speed += 0.001f;
@@ -71,13 +64,7 @@ namespace Grid.Grid
             {
                 speed -= 0.001f;
             }
-            GameObject.Find("hos").Rotation += speed;
-            foreach (var g in GameObject.FindGameObjectsByTag("little_hos")) g.Rotation += 0.1f;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.I))
-                GameObject.Find("hos").Scale *= 1.1f;
-            if (Keyboard.GetState().IsKeyDown(Keys.O))
-                GameObject.Find("hos").Scale *= 0.9f;
+            foreach (var g in GameObject.FindGameObjectsByTag("hos")) g.Rotation += speed;
             Window.Title = Mouse.GetState().Position.ToString();
         }
 

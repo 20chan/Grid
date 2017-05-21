@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Grid.Framework.Components;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Grid.Framework
@@ -11,7 +12,7 @@ namespace Grid.Framework
         public static Scene CurrentScene;
 
         public Color BackColor { get; set; } = Color.CornflowerBlue;
-
+        
         private GameObject _mainCam;
         public GameObject MainCamera { get => _mainCam; set { _mainCam = value; mainCameraComponent = value.GetComponent<Camera>(); } }
         protected Camera mainCameraComponent;
@@ -23,11 +24,28 @@ namespace Grid.Framework
         protected GraphicsDeviceManager _graphics;
         protected SpriteBatch _spriteBatch;
 
+        #region Queue
         private List<GameObject> _gameObjects;
         private Queue<GameObject> _notStartedGameobject;
         private Queue<Component> _notStartedQueue;
         private Queue<GameObject> _destroyGameObjectQueue;
         private Queue<Component> _destroyComponentQueue;
+        #endregion
+
+        #region MouseEvent
+        public Point MousePosition { get; private set; }
+        public bool IsAnyGUIUseMouse { get; private set; }
+        public bool IsMouseMoved { get; private set; }
+        public bool IsMouseInScreen { get; private set; }
+        
+        public bool IsLeftMouseDown { get; private set; }
+        public bool IsLeftMouseUp { get; private set; }
+        public bool IsLeftMouseClicking { get; private set; }
+
+        public bool IsRightMouseDown { get; private set; }
+        public bool IsRightMouseUp { get; private set; }
+        public bool IsRightMouseClicking { get; private set; }
+        #endregion
 
         public Scene()
         {
@@ -94,6 +112,24 @@ namespace Grid.Framework
             guiManagerComponent.HandleEvent();
             _gameObjects.FindAll(o => o.Enabled).ForEach(o => o.Update());
             _gameObjects.FindAll(o => o.Enabled).ForEach(o => o.LateUpdate());
+
+            #region Handle mouse event
+
+            if (Mouse.GetState().Position != MousePosition)
+                IsMouseMoved = true;
+            else
+                IsMouseMoved = false;
+            MousePosition = Mouse.GetState().Position;
+
+            IsAnyGUIUseMouse = false;
+            if(guiManagerComponent.GUIs.Where(g => g is GUIs.Clickable)
+                                       .Any(g => ((GUIs.Clickable)g).IsMouseClicking))
+            {
+                IsAnyGUIUseMouse = true;
+            }
+
+            #endregion
+
             base.Update(gameTime);
         }
 

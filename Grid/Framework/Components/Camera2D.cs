@@ -18,11 +18,11 @@ namespace Grid.Framework.Components
         public override Matrix GetTransform(GraphicsDevice device)
             => Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
                                         Matrix.CreateRotationZ(Rotation) *
-                                        Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
-                                        Matrix.CreateTranslation(new Vector3((float)device.Viewport.Width * 0.5f, device.Viewport.Height * 0.5f, 0));
+                                        Matrix.CreateScale(new Vector3(Zoom, Zoom, 1));
 
         public Vector2 GetRay(Vector2 arg)
         {
+            // TODO: 이거 구현하기
             return (Position + arg) * Zoom;
         }
     }
