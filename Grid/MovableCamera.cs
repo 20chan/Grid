@@ -14,7 +14,7 @@ namespace Grid
         public float RotateSpeed { get; set; } = 0.03f;
         public override void LateUpdate()
         {
-            var cam = GameObject.GetComponent<Camera>();
+            var cam = GameObject.GetComponent<Camera2D>();
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 cam.Position += new Vector2(0, -1) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))

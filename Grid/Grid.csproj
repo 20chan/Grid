@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Framework\Component.cs" />
     <Compile Include="Framework\Components\Camera.cs" />
+    <Compile Include="Framework\Components\Camera2D.cs" />
     <Compile Include="Framework\Components\Renderable.cs" />
     <Compile Include="Framework\Components\Renderable2D.cs" />
     <Compile Include="Framework\Components\Renderable2DAnimation.cs" />

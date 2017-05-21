@@ -57,10 +57,10 @@ namespace Grid.Framework
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var mainCam = new GameObject("Camera");
-            mainCam.AddComponent<Camera>();
+            var cam = mainCam.AddComponent<Camera2D>();
             MainCamera = mainCam;
             Instantiate(mainCam);
-            Camera.Current = MainCamera;
+            Camera.Current = cam;
 
             var guimanager = new GameObject("GUIManager");
             guimanager.AddComponent<GUIManager>();
