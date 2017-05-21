@@ -101,13 +101,27 @@ namespace Grid.Framework
         {
             GraphicsDevice.Clear(BackColor);
 
-            _spriteBatch.Begin(transformMatrix: mainCameraComponent.GetTransform(GraphicsDevice));
+            var camMatrix = mainCameraComponent.GetTransform(GraphicsDevice);
+            
             foreach (var obj in _gameObjects)
             {
-                if(obj.Enabled)
-                    obj.GetComponent<Renderable>()?.Draw(_spriteBatch);
+                if (obj.Enabled)
+                {
+                    var rend = obj.GetComponent<Renderable>();
+                    if (rend == null)
+                        continue;
+                    if (!rend.Enabled)
+                        continue;
+                    if (rend.OnCamera)
+                    {
+                        _spriteBatch.Begin(transformMatrix: camMatrix);
+                        rend.Draw(_spriteBatch);
+                        _spriteBatch.End();
+                    }
+                    else
+                        rend.Draw(_spriteBatch);
+                }
             }
-            _spriteBatch.End();
 
             _spriteBatch.Begin();
             guiManagerComponent.Draw(_spriteBatch); // UI는 카메라와 상관없어야 한다는 전제 하에
