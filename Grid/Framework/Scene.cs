@@ -115,11 +115,31 @@ namespace Grid.Framework
 
             #region Handle mouse event
 
-            if (Mouse.GetState().Position != MousePosition)
+            var state = Mouse.GetState();
+            if (state.Position != MousePosition)
                 IsMouseMoved = true;
             else
                 IsMouseMoved = false;
-            MousePosition = Mouse.GetState().Position;
+            
+            if (state.LeftButton == ButtonState.Pressed)
+            {
+                if (!IsLeftMouseClicking)
+                {
+                    IsLeftMouseDown = true;
+                    IsLeftMouseClicking = true;
+                }
+                else if (IsLeftMouseDown)
+                    IsLeftMouseDown = false;
+            }
+            else if(IsLeftMouseClicking)
+            {
+                IsLeftMouseClicking = false;
+                IsLeftMouseUp = true;
+            }
+            if (state.RightButton == ButtonState.Pressed)
+                IsRightMouseClicking = true;
+
+            MousePosition = state.Position;
 
             IsAnyGUIUseMouse = false;
             if(guiManagerComponent.GUIs.Where(g => g is GUIs.Clickable)
