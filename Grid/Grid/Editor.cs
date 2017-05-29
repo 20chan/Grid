@@ -51,7 +51,7 @@ namespace Grid.Grid
             {
                 mouseDown = true;
                 GameObject o = new GameObject("hos") { Tag = "hos" };
-
+                o.Position = mainCameraComponent.GetRay(Mouse.GetState().Position.ToVector2());
                 o.AddComponent<Renderable2D>().Texture = hosTexture;
                 Instantiate(o);
             }

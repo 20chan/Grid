@@ -157,7 +157,7 @@ namespace Grid.Framework
         {
             GraphicsDevice.Clear(BackColor);
 
-            var camMatrix = mainCameraComponent.GetTransform(GraphicsDevice);
+            var camMatrix = mainCameraComponent.GetTransform();
             
             foreach (var obj in _gameObjects)
             {

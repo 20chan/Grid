@@ -14,16 +14,22 @@ namespace Grid.Framework.Components
         public float Zoom { get => _zoom; set { _zoom = (float)Math.Max(value, 0.1); } }
         public float Rotation { get; set; } = 0f;
         public Vector2 Position { get; set; } = new Vector2();
+        public Rectangle Bounds { get; }
 
-        public override Matrix GetTransform(GraphicsDevice device)
+        public override Matrix GetTransform()
             => Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
                                         Matrix.CreateRotationZ(Rotation) *
-                                        Matrix.CreateScale(new Vector3(Zoom, Zoom, 1));
+                                        Matrix.CreateScale(new Vector3(Zoom, Zoom, 1))
+            * Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
 
-        public Vector2 GetRay(Vector2 arg)
+        public Camera2D()
         {
-            // TODO: 이거 구현하기
-            return (Position + arg) * Zoom;
+            Bounds = Scene.CurrentScene.GraphicsDevice.Viewport.Bounds;
+        }
+
+        public override Vector2 GetRay(Vector2 arg)
+        {
+            return Vector2.Transform(arg, Matrix.Invert(GetTransform()));
         }
     }
 }
