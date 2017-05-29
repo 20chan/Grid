@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Grid.Framework.Components
 {
@@ -15,6 +15,7 @@ namespace Grid.Framework.Components
         public float Rotation { get; set; } = 0f;
         public Vector2 Position { get; set; } = new Vector2();
         public Rectangle Bounds { get; }
+        public Vector2 CursorPosition { get; private set; }
 
         public override Matrix GetTransform()
             => Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
@@ -27,9 +28,20 @@ namespace Grid.Framework.Components
             Bounds = Scene.CurrentScene.GraphicsDevice.Viewport.Bounds;
         }
 
+        public void MoveAbsolutely(Vector2 direction)
+        {
+            Position += Vector2.Transform(direction, Matrix.CreateRotationX(Rotation));
+        }
+
         public override Vector2 GetRay(Vector2 arg)
         {
             return Vector2.Transform(arg, Matrix.Invert(GetTransform()));
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            CursorPosition = GetRay(Mouse.GetState().Position.ToVector2());
         }
     }
 }

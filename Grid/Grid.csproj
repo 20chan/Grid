@@ -52,6 +52,8 @@
     <Compile Include="Framework\GUIManager.cs" />
     <Compile Include="Framework\GUIs\Button.cs" />
     <Compile Include="Framework\GUIs\Clickable.cs" />
+    <Compile Include="Framework\GUIs\TextBox.cs" />
+    <Compile Include="Framework\GUIs\Typeable.cs" />
     <Compile Include="Framework\RectExtended.cs" />
     <Compile Include="Framework\Scene.cs" />
     <Compile Include="Framework\Time.cs" />
@@ -61,7 +63,7 @@
     <Compile Include="Grid\Blocks\EmptyBlock.cs" />
     <Compile Include="Grid\Editor.cs" />
     <Compile Include="Grid\World.cs" />
-    <Compile Include="MovableCamera.cs" />
+    <Compile Include="Framework\Components\Movable2DCamera.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

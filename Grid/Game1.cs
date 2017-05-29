@@ -26,7 +26,7 @@ namespace Grid
             obj.AddComponent<Movable>();
             Instantiate(obj);
 
-            MainCamera.AddComponent<MovableCamera>();
+            MainCamera.AddComponent<Movable2DCamera>();
         }
     }
 

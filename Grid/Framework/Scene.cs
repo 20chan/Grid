@@ -45,6 +45,9 @@ namespace Grid.Framework
         public bool IsRightMouseDown { get; private set; }
         public bool IsRightMouseUp { get; private set; }
         public bool IsRightMouseClicking { get; private set; }
+
+        public int MouseScrollValue { get; private set; }
+        private int _previousMouseScrollValue;
         #endregion
 
         public Scene()
@@ -120,6 +123,9 @@ namespace Grid.Framework
                 IsMouseMoved = true;
             else
                 IsMouseMoved = false;
+
+            IsLeftMouseDown = false;
+            IsLeftMouseUp = false;
             
             if (state.LeftButton == ButtonState.Pressed)
             {
@@ -147,6 +153,10 @@ namespace Grid.Framework
             {
                 IsAnyGUIUseMouse = true;
             }
+
+            var scroll = state.ScrollWheelValue;
+            MouseScrollValue = scroll - _previousMouseScrollValue;
+            _previousMouseScrollValue = scroll;
 
             #endregion
 
