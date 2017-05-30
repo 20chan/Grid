@@ -64,7 +64,7 @@ namespace Grid.Framework
             sb.Draw(DummyTexture, p1, null, color, angle, new Vector2(), scale, SpriteEffects.None, 0);
         }
 
-        public static void DrawLine(SpriteBatch sb, Point p1, Point p2, int border, Color color)
+        public static void DrawLine(SpriteBatch sb, Point p1, Point p2, float border, Color color)
             => DrawLine(sb, p1.ToVector2(), p2.ToVector2(), border, color);
 
         public static void DrawRectangle(SpriteBatch sb, Rectangle rect, int border, Color color)
@@ -108,7 +108,7 @@ namespace Grid.Framework
             => DrawVertices(sb, center, circleVertices(radius, sides), border, color);
 
         public static void DrawPoint(SpriteBatch sb, Vector2 point, float border, Color color)
-            => sb.Draw(DummyTexture, point + new Vector2(0.5f) - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
+            => sb.Draw(DummyTexture, point - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
     }
 
     [Flags]

@@ -17,7 +17,8 @@ namespace Grid.Framework
         public override void Draw(SpriteBatch sb)
         {
             sb.Begin();
-            GUI.DrawLine(sb, new Point(600, 300), Mouse.GetState().Position, 10, Color.Blue);
+            //GUI.DrawLine(sb, new Point(600, 300), Mouse.GetState().Position, 50, Color.Blue);
+            GUI.DrawPoint(sb, Mouse.GetState().Position.ToVector2(), 50, Color.Black);
             sb.End();
             base.Draw(sb);
         }

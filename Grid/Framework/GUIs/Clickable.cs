@@ -42,6 +42,7 @@ namespace Grid.Framework.GUIs
         /// 마우스가 UI의 범위 안에서 스크롤
         /// </summary>
         public int MouseWheel { get; private set; } = 0;
+        private int _previouseWheel;
 
         public override void HandleEvent()
         {
@@ -82,8 +83,6 @@ namespace Grid.Framework.GUIs
                         IsMouseClicking = true;
                         IsMouseDown = true;
                     }
-                    else if (IsMouseDown)
-                        IsMouseDown = false;
                 }
                 else if (IsMouseClicking)
                 {
@@ -91,8 +90,9 @@ namespace Grid.Framework.GUIs
                     IsMouseUp = true;
                 }
 
-
-                MouseWheel = mouse.ScrollWheelValue;
+                var scroll = mouse.ScrollWheelValue;
+                MouseWheel = scroll - _previouseWheel;
+                _previouseWheel = scroll;
             }
         }
 
