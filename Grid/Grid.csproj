@@ -54,8 +54,10 @@
     <Compile Include="Framework\GUIs\Clickable.cs" />
     <Compile Include="Framework\GUIs\TextBox.cs" />
     <Compile Include="Framework\GUIs\Typeable.cs" />
+    <Compile Include="Framework\GUITestComponent.cs" />
     <Compile Include="Framework\RectExtended.cs" />
     <Compile Include="Framework\Scene.cs" />
+    <Compile Include="Framework\TestScene.cs" />
     <Compile Include="Framework\Time.cs" />
     <Compile Include="Framework\Transform.cs" />
     <Compile Include="Game1.cs" />

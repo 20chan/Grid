@@ -14,7 +14,7 @@ namespace Grid
         [STAThread]
         static void Main()
         {
-            using (var game = new Grid.Editor())
+            using (var game = new Framework.TestScene())
                 game.Run();
         }
     }
