@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Grid.Framework
 {
@@ -11,6 +7,7 @@ namespace Grid.Framework
         protected override void LoadContent()
         {
             base.LoadContent();
+            GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
 
             GameObject gui = new GameObject("gui");
             gui.AddComponent<GUITestComponent>();

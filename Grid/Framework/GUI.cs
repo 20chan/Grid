@@ -61,7 +61,12 @@ namespace Grid.Framework
             float angle = (float)Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
             float length = Vector2.Distance(p1, p2);
             var scale = new Vector2(length, border);
-            sb.Draw(DummyTexture, p1, null, color, angle, new Vector2(), scale, SpriteEffects.None, 0);
+            var _angle = angle + MathHelper.ToRadians(90);
+            var _x = Math.Cos(_angle) * 1;
+            var _y = Math.Sin(_angle) * 1;
+            var _p1 = p1 - new Vector2((float)_x, (float)_y) * border * 0.5f;
+            Debug.WriteLine($"({_angle})");
+            sb.Draw(DummyTexture, _p1, null, color, angle, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
         public static void DrawLine(SpriteBatch sb, Point p1, Point p2, float border, Color color)
