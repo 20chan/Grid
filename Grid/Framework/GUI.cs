@@ -65,7 +65,7 @@ namespace Grid.Framework
             var _x = Math.Cos(_angle) * 1;
             var _y = Math.Sin(_angle) * 1;
             var _p1 = p1 - new Vector2((float)_x, (float)_y) * border * 0.5f;
-            Debug.WriteLine($"({_angle})");
+            //Debug.WriteLine($"({_angle})");
             sb.Draw(DummyTexture, _p1, null, color, angle, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
