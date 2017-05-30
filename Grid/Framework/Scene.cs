@@ -21,6 +21,8 @@ namespace Grid.Framework
         public GameObject GuiManager { get => _guiManager; set { _guiManager = value; guiManagerComponent = value.GetComponent<GUIManager>(); } }
         protected GUIManager guiManagerComponent;
 
+        public Debug Debugger;
+
         protected GraphicsDeviceManager _graphics;
         protected SpriteBatch _spriteBatch;
 
@@ -88,6 +90,9 @@ namespace Grid.Framework
             GuiManager = guimanager;
             Instantiate(guimanager);
 
+            var d = new GameObject("Debug");
+            Debugger = d.AddComponent<Debug>();
+            Instantiate(d);
             base.LoadContent();
         }
 

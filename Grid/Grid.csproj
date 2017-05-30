@@ -47,6 +47,7 @@
     <Compile Include="Framework\Components\Renderable.cs" />
     <Compile Include="Framework\Components\Renderable2D.cs" />
     <Compile Include="Framework\Components\Renderable2DAnimation.cs" />
+    <Compile Include="Framework\Debug.cs" />
     <Compile Include="Framework\GameObject.cs" />
     <Compile Include="Framework\GUI.cs" />
     <Compile Include="Framework\GUIManager.cs" />
