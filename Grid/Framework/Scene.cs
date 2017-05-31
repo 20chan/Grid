@@ -26,6 +26,8 @@ namespace Grid.Framework
         protected GraphicsDeviceManager _graphics;
         protected SpriteBatch _spriteBatch;
 
+        public Rectangle ScreenBound { get; private set; }
+
         #region Queue
         private List<GameObject> _gameObjects;
         private Queue<GameObject> _notStartedGameobject;
@@ -64,6 +66,8 @@ namespace Grid.Framework
             _notStartedGameobject = new Queue<GameObject>();
             _destroyGameObjectQueue = new Queue<GameObject>();
             _destroyComponentQueue = new Queue<Component>();
+            ScreenBound = Window.ClientBounds;
+            Window.ClientSizeChanged += (s, e) => ScreenBound = Window.ClientBounds;
         }
 
         protected virtual void InitSize() { }
