@@ -25,10 +25,10 @@ namespace Grid.Framework.GUIs
         public int Y { get; set; } = -1;
         public int Width { get; set; } = -1;
         public int Height { get; set; } = -1;
-
-        public Rectangle Rect
+        
+        public Rectangle Bounds
         {
-            get => new Rectangle((int)X, (int)Y, (int)Width, (int)Height);
+            get => new Rectangle(X, Y, Width, Height);
             set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
         }
 
