@@ -17,7 +17,7 @@ namespace Grid.Framework
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Debug.WriteLine($"{ScreenBound}");
+            Debug.WriteLine($"{ScreenBounds}");
         }
     }
 }
