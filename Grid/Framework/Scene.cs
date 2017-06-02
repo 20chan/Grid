@@ -37,6 +37,7 @@ namespace Grid.Framework
         #endregion
 
         #region MouseEvent
+        public Point LastMousePosition { get; private set; }
         public Point MousePosition { get; private set; }
         public bool IsAnyGUIUseMouse { get; private set; }
         public bool IsMouseMoved { get; private set; }
@@ -155,6 +156,7 @@ namespace Grid.Framework
             if (state.RightButton == ButtonState.Pressed)
                 IsRightMouseClicking = true;
 
+            LastMousePosition = MousePosition;
             MousePosition = state.Position;
 
             IsAnyGUIUseMouse = false;
@@ -199,7 +201,7 @@ namespace Grid.Framework
                 }
             }
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             guiManagerComponent.Draw(_spriteBatch); // UI는 카메라와 상관없어야 한다는 전제 하에
             _spriteBatch.End();
 
