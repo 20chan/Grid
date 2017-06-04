@@ -145,16 +145,21 @@ namespace Grid.Framework
                     IsLeftMouseDown = true;
                     IsLeftMouseClicking = true;
                 }
-                else if (IsLeftMouseDown)
-                    IsLeftMouseDown = false;
             }
             else if(IsLeftMouseClicking)
             {
                 IsLeftMouseClicking = false;
                 IsLeftMouseUp = true;
             }
+
             if (state.RightButton == ButtonState.Pressed)
-                IsRightMouseClicking = true;
+            {
+                if (!IsRightMouseClicking)
+                {
+                    IsRightMouseDown = true;
+                    IsRightMouseClicking = true;
+                }
+            }
 
             LastMousePosition = MousePosition;
             MousePosition = state.Position;
