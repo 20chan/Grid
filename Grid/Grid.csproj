@@ -54,8 +54,8 @@
     <Compile Include="Framework\GUIs\Button.cs" />
     <Compile Include="Framework\GUIs\Clickable.cs" />
     <Compile Include="Framework\GUIs\ImageButton.cs" />
-    <Compile Include="Framework\GUIs\TextBox.cs" />
-    <Compile Include="Framework\GUIs\Typeable.cs" />
+    <Compile Include="Framework\GUIs\IScrollable.cs" />
+    <Compile Include="Framework\GUIs\ITypeable.cs" />
     <Compile Include="Framework\GUITestComponent.cs" />
     <Compile Include="Framework\RectExtended.cs" />
     <Compile Include="Framework\Scene.cs" />
