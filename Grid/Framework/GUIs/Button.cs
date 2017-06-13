@@ -20,29 +20,14 @@ namespace Grid.Framework.GUIs
         public SpriteFont Font { get; set; }
         public float TextRotation { get; set; } = 0f;
         public string Text { get; set; }
-
-        public int X { get; set; } = -1;
-        public int Y { get; set; } = -1;
-        public int Width { get; set; } = -1;
-        public int Height { get; set; } = -1;
         
-        public Rectangle Bounds
-        {
-            get => new Rectangle(X, Y, Width, Height);
-            set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
-        }
-
         public Button(int x, int y, int width, int height, string text)
         {
             X = x; Y = y; Width = width; Height = height;
             Text = text;
             Font = GUIManager.DefaultFont;
         }
-
-        public override bool IsInRect(Point point)
-            => X < point.X && point.X < X + Width
-            && Y < point.Y && point.Y < Y + Height;
-
+        
         public override void Draw(SpriteBatch sb)
         {
             GUI.FillRectangle(sb, new Rectangle(X - Border, Y - Border, Width + Border * 2, Height + Border * 2), BorderColor);

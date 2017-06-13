@@ -95,8 +95,11 @@ namespace Grid.Framework.GUIs
                 _previouseWheel = scroll;
             }
         }
+        
+        public virtual bool IsInRect(Point point)
+            => X < point.X && point.X < X + Width
+            && Y < point.Y && point.Y < Y + Height;
 
-        public abstract bool IsInRect(Point point);
         public virtual bool IsClicking()
             => Mouse.GetState().LeftButton == ButtonState.Pressed && IsInRect(Mouse.GetState().Position);
     }

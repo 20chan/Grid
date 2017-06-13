@@ -25,7 +25,7 @@ namespace Grid.Framework
 
         public Debug()
         {
-            _buffer = new StringBuilder();
+            _buffer = new StringBuilder(); 
             OnCamera = false;
         }
 

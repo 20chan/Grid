@@ -12,7 +12,7 @@ namespace Grid.Framework
         public static Scene CurrentScene;
 
         public Color BackColor { get; set; } = Color.CornflowerBlue;
-        
+
         private GameObject _mainCam;
         public GameObject MainCamera { get => _mainCam; set { _mainCam = value; mainCameraComponent = value.GetComponent<Camera>(); } }
         protected Camera mainCameraComponent;
@@ -42,7 +42,7 @@ namespace Grid.Framework
         public bool IsAnyGUIUseMouse { get; private set; }
         public bool IsMouseMoved { get; private set; }
         public bool IsMouseInScreen { get; private set; }
-        
+
         public bool IsLeftMouseDown { get; private set; }
         public bool IsLeftMouseUp { get; private set; }
         public bool IsLeftMouseClicking { get; private set; }
@@ -137,7 +137,7 @@ namespace Grid.Framework
 
             IsLeftMouseDown = false;
             IsLeftMouseUp = false;
-            
+
             if (state.LeftButton == ButtonState.Pressed)
             {
                 if (!IsLeftMouseClicking)
@@ -146,7 +146,7 @@ namespace Grid.Framework
                     IsLeftMouseClicking = true;
                 }
             }
-            else if(IsLeftMouseClicking)
+            else if (IsLeftMouseClicking)
             {
                 IsLeftMouseClicking = false;
                 IsLeftMouseUp = true;
@@ -165,7 +165,7 @@ namespace Grid.Framework
             MousePosition = state.Position;
 
             IsAnyGUIUseMouse = false;
-            if(guiManagerComponent.GUIs.Where(g => g is GUIs.Clickable)
+            if (guiManagerComponent.GUIs.Where(g => g is GUIs.Clickable)
                                        .Any(g => ((GUIs.Clickable)g).IsMouseClicking))
             {
                 IsAnyGUIUseMouse = true;
@@ -185,7 +185,7 @@ namespace Grid.Framework
             GraphicsDevice.Clear(BackColor);
 
             var camMatrix = mainCameraComponent.GetTransform();
-            
+
             foreach (var obj in _gameObjects)
             {
                 if (obj.Enabled)
@@ -224,7 +224,7 @@ namespace Grid.Framework
 
         public void Destroy(Component component)
             => _destroyComponentQueue.Enqueue(component);
-        
+
         public GameObject FindGameObjectByName(string name)
             => _gameObjects.Find(g => g.Name == name);
 
