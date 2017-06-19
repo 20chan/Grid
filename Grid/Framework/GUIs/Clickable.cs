@@ -43,6 +43,8 @@ namespace Grid.Framework.GUIs
         /// </summary>
         public int MouseWheel { get; private set; } = 0;
         private int _previouseWheel;
+        private bool _previousMouseDown = false;
+        private bool _shouldNotBeDown = false;
 
         public override void HandleEvent()
         {
@@ -60,6 +62,7 @@ namespace Grid.Framework.GUIs
                 {
                     IsMouseLeaved = true;
                     IsMouseHover = false;
+                    _shouldNotBeDown = false;
                 }
                 else if (IsMouseLeaved)
                     IsMouseLeaved = false;
@@ -70,6 +73,8 @@ namespace Grid.Framework.GUIs
             {
                 if (!IsMouseHover) // 처음 UI의 범위 안에 들어옴
                 {
+                    if (_previousMouseDown)
+                        _shouldNotBeDown = true;
                     IsMouseHover = true;
                     IsMouseEntered = true;
                 }
@@ -78,7 +83,7 @@ namespace Grid.Framework.GUIs
 
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
-                    if (!IsMouseClicking) // 처음 클릭함
+                    if (!IsMouseClicking && !_shouldNotBeDown) // 처음 클릭함
                     {
                         IsMouseClicking = true;
                         IsMouseDown = true;
@@ -89,11 +94,14 @@ namespace Grid.Framework.GUIs
                     IsMouseClicking = false;
                     IsMouseUp = true;
                 }
+                else if (_shouldNotBeDown)
+                    _shouldNotBeDown = false;
 
                 var scroll = mouse.ScrollWheelValue;
                 MouseWheel = scroll - _previouseWheel;
                 _previouseWheel = scroll;
             }
+            _previousMouseDown = mouse.LeftButton == ButtonState.Pressed;
         }
         
         public virtual bool IsInRect(Point point)
