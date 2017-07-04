@@ -19,9 +19,9 @@ namespace Grid.Framework
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
-            if (b.IsMouseClicking)
-                Debug.DisplayLine("MouseClicking");
+
+            if (IsLeftMouseUp)
+                Debug.Display("o");
         }
     }
 }

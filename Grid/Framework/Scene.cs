@@ -47,6 +47,10 @@ namespace Grid.Framework
         public bool IsLeftMouseUp { get; private set; }
         public bool IsLeftMouseClicking { get; private set; }
 
+        public bool IsMiddleMouseDown { get; private set; }
+        public bool IsMiddleMouseUp { get; private set; }
+        public bool IsMiddleMouseClicking { get; private set; }
+
         public bool IsRightMouseDown { get; private set; }
         public bool IsRightMouseUp { get; private set; }
         public bool IsRightMouseClicking { get; private set; }
@@ -137,6 +141,10 @@ namespace Grid.Framework
 
             IsLeftMouseDown = false;
             IsLeftMouseUp = false;
+            IsMiddleMouseDown = false;
+            IsMiddleMouseUp = false;
+            IsRightMouseDown = false;
+            IsRightMouseUp = false;
 
             if (state.LeftButton == ButtonState.Pressed)
             {
@@ -152,6 +160,20 @@ namespace Grid.Framework
                 IsLeftMouseUp = true;
             }
 
+            if(state.MiddleButton == ButtonState.Pressed)
+            {
+                if (!IsMiddleMouseClicking)
+                {
+                    IsMiddleMouseDown = true;
+                    IsMiddleMouseClicking = true;
+                }
+            }
+            else if (IsMiddleMouseClicking)
+            {
+                IsMiddleMouseClicking = false;
+                IsMiddleMouseUp = true;
+            }
+
             if (state.RightButton == ButtonState.Pressed)
             {
                 if (!IsRightMouseClicking)
@@ -159,6 +181,11 @@ namespace Grid.Framework
                     IsRightMouseDown = true;
                     IsRightMouseClicking = true;
                 }
+            }
+            else if(IsRightMouseClicking)
+            {
+                IsRightMouseClicking = false;
+                IsRightMouseUp = true;
             }
 
             LastMousePosition = MousePosition;
