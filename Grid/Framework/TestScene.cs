@@ -21,7 +21,7 @@ namespace Grid.Framework
             base.Update(gameTime);
             
             if (b.IsMouseClicking)
-                Debug.WriteLine("MouseClicking");
+                Debug.DisplayLine("MouseClicking");
         }
     }
 }

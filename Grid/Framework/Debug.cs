@@ -10,29 +10,41 @@ namespace Grid.Framework
         private SpriteFont _font;
         public SpriteFont Font { get => _font ?? GUIManager.DefaultFont; set => _font = value; }
         public Color Color { get; set; } = Color.White;
+        private StringBuilder _deepBuffer;
         private StringBuilder _buffer;
         private string _out;
 
-        public static void Write(object o)
+        public static void Display(object o)
         {
             Scene.CurrentScene.Debugger._buffer.Append(o);
         }
 
-        public static void WriteLine(string s)
+        public static void DisplayLine(string s)
         {
             Scene.CurrentScene.Debugger._buffer.AppendLine(s);
         }
 
+        public static void Log(string s)
+        {
+            Scene.CurrentScene.Debugger._deepBuffer.AppendLine(s);
+        }
+
+        public static void ClearLog()
+        {
+            Scene.CurrentScene.Debugger._deepBuffer.Clear();
+        }
+
         public Debug()
         {
-            _buffer = new StringBuilder(); 
+            _buffer = new StringBuilder();
+            _deepBuffer = new StringBuilder();
             OnCamera = false;
         }
 
         public override void Update()
         { 
             base.Update();
-            _out = _buffer.ToString();
+            _out = _deepBuffer.ToString() + _buffer.ToString();
             _buffer.Clear();
         }
 
