@@ -23,6 +23,7 @@ namespace Grid.Framework
         public virtual void Draw(SpriteBatch sb) { }
         public virtual void HandleEvent() { }
 
+        #region Static Functions
         private static Texture2D _dummyTexture;
         public static Texture2D DummyTexture
         {
@@ -125,6 +126,12 @@ namespace Grid.Framework
 
         public static void DrawPoint(SpriteBatch sb, Vector2 point, float border, Color color)
             => sb.Draw(DummyTexture, point - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
+
+        public static Point MeasureFontSize(SpriteFont font, string text)
+        {
+            throw new NotImplementedException();
+        }
+#endregion
     }
 
     [Flags]
