@@ -17,13 +17,13 @@ namespace Grid.Framework.GUIs
             set
             {
                 _text = value;
-                _minimalSize = MeasureFontSize(Font, _text);
+                _minimalSize = MeasureFontSize(Font, _text).ToPoint();
             }
         }
         public Alignment TextAlignment { get; set; } = Alignment.Center;
-        public Color ForeColor { get; set; }
-        public Color BackColor { get; set; }
-
+        public Color ForeColor { get; set; } = Color.Black;
+        public Color BackColor { get; set; } = Color.Azure;
+        public bool Focused { get; internal set; } = false;
         private Point _minimalSize;
         public Point MinimalSize => _minimalSize;
 

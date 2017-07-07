@@ -127,9 +127,9 @@ namespace Grid.Framework
         public static void DrawPoint(SpriteBatch sb, Vector2 point, float border, Color color)
             => sb.Draw(DummyTexture, point - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
 
-        public static Point MeasureFontSize(SpriteFont font, string text)
+        public static Vector2 MeasureFontSize(SpriteFont font, string text)
         {
-            throw new NotImplementedException();
+            return font.MeasureString(text);
         }
 #endregion
     }

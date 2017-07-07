@@ -6,22 +6,25 @@ namespace Grid.Framework
 {
     class TestScene : Scene
     {
-        Button b;
+        MenuStrip menu;
         protected override void LoadContent()
         {
             base.LoadContent();
             GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
-            b = new Button(100, 100, 100, 100, "test");
-            guiManagerComponent.GUIs.Add(b);
+            menu = new MenuStrip();
+            menu.Items.Add(new MenuStripItem("Test 1"));
+            menu.Items.Add(new MenuStripItem("Test 2"));
+            menu.Items.Add(new MenuStripItem("Test 3"));
+            guiManagerComponent.GUIs.Add(menu);
 
         }
-
+        
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (IsLeftMouseUp)
-                Debug.Display("o");
+            if (IsRightMouseDown)
+                menu.IsShown = true;
         }
     }
 }
