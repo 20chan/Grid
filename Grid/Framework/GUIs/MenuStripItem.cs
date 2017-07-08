@@ -22,7 +22,8 @@ namespace Grid.Framework.GUIs
         }
         public Alignment TextAlignment { get; set; } = Alignment.Center;
         public Color ForeColor { get; set; } = Color.Black;
-        public Color BackColor { get; set; } = Color.Azure;
+        public Color BackColor { get; set; } = Color.Snow;
+        public Color FocusedBackColor { get; set; } = Color.SkyBlue;
         public bool Focused { get; internal set; } = false;
         private Point _minimalSize;
         public Point MinimalSize => _minimalSize;

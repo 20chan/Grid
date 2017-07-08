@@ -10,9 +10,9 @@ namespace Grid.Framework.GUIs
 {
     public class MenuStrip : GUI
     {
-        public bool IsShown { get; set; } = false;
+        public bool IsShown { get; private set; } = false;
         public List<MenuStripItem> Items { get; private set; }
-        private int _gapX = 2, _gapY = 2;
+        private int _gapX = 3, _gapY = 3;
 
         public MenuStrip()
         {
@@ -20,6 +20,12 @@ namespace Grid.Framework.GUIs
 
             if (MenuStripItem.Font == null)
                 MenuStripItem.Font = GUIManager.DefaultFont;
+        }
+
+        public void Show(int x, int y)
+        {
+            IsShown = true;
+            X = x; Y = y;
         }
 
         public override void Draw(SpriteBatch sb)
@@ -32,21 +38,21 @@ namespace Grid.Framework.GUIs
                 itemSize = new Point(Math.Max(itemSize.X, item.MinimalSize.X),
                                      Math.Max(itemSize.Y, item.MinimalSize.Y));
 
-            itemSize = new Point(itemSize.X + _gapX * 2, itemSize.Y + _gapY * 2);
-
             Point currentPos = new Point(X, Y);
-            // 일단 색은 하얀색으로
-            FillRectangle(sb, new Rectangle(currentPos, 
-                new Point(itemSize.X + _gapX * 2, (itemSize.Y + _gapY) * Items.Count - _gapY)),
-                Color.White);
 
-            foreach(var item in Items)
+            // 일단 색은 하얀색으로
+            var rect = new Rectangle(currentPos, new Point(itemSize.X + _gapX * 2, (itemSize.Y + _gapY * 2) * Items.Count));
+            this.Bounds = rect;
+            FillRectangle(sb, rect, Color.White);
+
+            foreach (var item in Items)
             {
                 // MenuStripItem 그리기
-                Rectangle bound = new Rectangle(currentPos, itemSize);
-                FillRectangle(sb, bound, item.BackColor);
+                Rectangle bound = new Rectangle(currentPos.X + _gapX, currentPos.Y + _gapY, itemSize.X, itemSize.Y);
+                item.Bounds = bound;
+                FillRectangle(sb, bound, item.Focused ? item.FocusedBackColor : item.BackColor);
                 DrawString(sb, MenuStripItem.Font, item.Text, item.TextAlignment, bound, item.ForeColor, 0);
-                currentPos.Y += itemSize.Y + _gapY;
+                currentPos.Y += itemSize.Y + _gapY * 2;
             }
         }
 
@@ -55,6 +61,22 @@ namespace Grid.Framework.GUIs
             base.HandleEvent();
 
             // TODO: 아이템들 마우스 호버시 포커스되게끔
+            if (IsShown && Bounds.Contains(Scene.CurrentScene.MousePosition))
+            {
+                foreach (var item in Items)
+                {
+                    item.Focused = item.Bounds.Contains(Scene.CurrentScene.MousePosition);
+                }
+
+                if (Scene.CurrentScene.IsLeftMouseUp)
+                {
+                    foreach (var item in Items)
+                        if (item.Focused)
+                            IsShown = false; // TODO: 여기에 아이템 선택하는 이벤트 핸들러 추가
+                }
+            }
+            else if (Scene.CurrentScene.IsLeftMouseDown)
+                IsShown = false;
         }
     }
 }

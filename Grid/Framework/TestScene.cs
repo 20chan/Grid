@@ -24,7 +24,7 @@ namespace Grid.Framework
             base.Update(gameTime);
 
             if (IsRightMouseDown)
-                menu.IsShown = true;
+                menu.Show(MousePosition.X, MousePosition.Y);
         }
     }
 }
