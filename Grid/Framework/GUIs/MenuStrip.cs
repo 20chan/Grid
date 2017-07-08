@@ -18,9 +18,9 @@ namespace Grid.Framework.GUIs
         public bool IsCancled { get; private set; } = false;
         public int SelectedIndex { get; private set; } = -1;
 
-        public MenuStrip()
+        public MenuStrip(List<MenuStripItem> items = null)
         {
-            Items = new List<MenuStripItem>();
+            Items = items ?? new List<MenuStripItem>();
 
             if (MenuStripItem.Font == null)
                 MenuStripItem.Font = GUIManager.DefaultFont;
