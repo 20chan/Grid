@@ -25,6 +25,12 @@ namespace Grid.Framework
 
             if (IsRightMouseDown)
                 menu.Show(MousePosition.X, MousePosition.Y);
+
+            if (menu.IsSelected)
+                Debug.Log($"You selected {menu.SelectedIndex + 1}!");
+
+            if (menu.IsCancled)
+                Debug.Log("You cancled!");
         }
     }
 }

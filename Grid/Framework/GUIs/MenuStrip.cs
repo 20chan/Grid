@@ -14,6 +14,10 @@ namespace Grid.Framework.GUIs
         public List<MenuStripItem> Items { get; private set; }
         private int _gapX = 3, _gapY = 3;
 
+        public bool IsSelected { get; private set; } = false;
+        public bool IsCancled { get; private set; } = false;
+        public int SelectedIndex { get; private set; } = -1;
+
         public MenuStrip()
         {
             Items = new List<MenuStripItem>();
@@ -60,6 +64,9 @@ namespace Grid.Framework.GUIs
         {
             base.HandleEvent();
 
+            if (IsSelected) IsSelected = false;
+            if (IsCancled) IsCancled = false;
+
             // TODO: 아이템들 마우스 호버시 포커스되게끔
             if (IsShown && Bounds.Contains(Scene.CurrentScene.MousePosition))
             {
@@ -70,13 +77,24 @@ namespace Grid.Framework.GUIs
 
                 if (Scene.CurrentScene.IsLeftMouseUp)
                 {
+                    int index = 0;
                     foreach (var item in Items)
+                    {
                         if (item.Focused)
-                            IsShown = false; // TODO: 여기에 아이템 선택하는 이벤트 핸들러 추가
+                        {
+                            IsSelected = true;
+                            SelectedIndex = index;
+                            IsShown = false;
+                        }
+                        index++;
+                    }
                 }
             }
             else if (Scene.CurrentScene.IsLeftMouseDown)
+            {
+                IsCancled = true;
                 IsShown = false;
+            }
         }
     }
 }
