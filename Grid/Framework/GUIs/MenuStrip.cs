@@ -11,16 +11,22 @@ namespace Grid.Framework.GUIs
     public class MenuStrip : GUI
     {
         public bool IsShown { get; private set; } = false;
-        public List<MenuStripItem> Items { get; private set; }
-        private int _gapX = 3, _gapY = 3;
+
+        public new int X { get => _head.X; set => _head.X = value; }
+        public new int Y { get => _head.Y; set => _head.Y = value; }
+        public new int Width { get => _head.Width; set => _head.Width = value; }
+        public new int Height { get => _head.Height; set => _head.Height = value; }
+
+        protected MenuStripItem _head;
+        public List<MenuStripItem> Items => _head.SubItems;
 
         public bool IsSelected { get; private set; } = false;
         public bool IsCancled { get; private set; } = false;
-        public int SelectedIndex { get; private set; } = -1;
+        public MenuStripItem SelectedItem { get; private set; } = null;
 
         public MenuStrip(List<MenuStripItem> items = null)
         {
-            Items = items ?? new List<MenuStripItem>();
+            _head = new MenuStripItem(">HEAD<", items ?? new List<MenuStripItem>(), true);
 
             if (MenuStripItem.Font == null)
                 MenuStripItem.Font = GUIManager.DefaultFont;
@@ -37,27 +43,7 @@ namespace Grid.Framework.GUIs
             base.Draw(sb);
             if (!IsShown) return;
 
-            var itemSize = new Point();
-            foreach (var item in Items)
-                itemSize = new Point(Math.Max(itemSize.X, item.MinimalSize.X),
-                                     Math.Max(itemSize.Y, item.MinimalSize.Y));
-
-            Point currentPos = new Point(X, Y);
-
-            // 일단 색은 하얀색으로
-            var rect = new Rectangle(currentPos, new Point(itemSize.X + _gapX * 2, (itemSize.Y + _gapY * 2) * Items.Count));
-            this.Bounds = rect;
-            FillRectangle(sb, rect, Color.White);
-
-            foreach (var item in Items)
-            {
-                // MenuStripItem 그리기
-                Rectangle bound = new Rectangle(currentPos.X + _gapX, currentPos.Y + _gapY, itemSize.X, itemSize.Y);
-                item.Bounds = bound;
-                FillRectangle(sb, bound, item.Focused ? item.FocusedBackColor : item.BackColor);
-                DrawString(sb, MenuStripItem.Font, item.Text, item.TextAlignment, bound, item.ForeColor, 0);
-                currentPos.Y += itemSize.Y + _gapY * 2;
-            }
+            this.Bounds = _head.DrawItems(sb);
         }
 
         public override void HandleEvent()
@@ -67,33 +53,38 @@ namespace Grid.Framework.GUIs
             if (IsSelected) IsSelected = false;
             if (IsCancled) IsCancled = false;
 
-            // TODO: 아이템들 마우스 호버시 포커스되게끔
-            if (IsShown && Bounds.Contains(Scene.CurrentScene.MousePosition))
+            // TODO: Bounds가 아니라 SubItemBound 도 전부 검사해야함
+            if (IsShown)
             {
                 foreach (var item in Items)
                 {
-                    item.Focused = item.Bounds.Contains(Scene.CurrentScene.MousePosition);
+                    item.CheckFocus();
                 }
 
-                if (Scene.CurrentScene.IsLeftMouseUp)
+                if (_head.IsFocusedItemExist())
                 {
-                    int index = 0;
-                    foreach (var item in Items)
+
+                    if (Scene.CurrentScene.IsLeftMouseUp)
                     {
-                        if (item.Focused)
+                        int index = 0;
+                        foreach (var item in Items)
                         {
-                            IsSelected = true;
-                            SelectedIndex = index;
-                            IsShown = false;
+                            if (item.Focused)
+                            {
+                                IsSelected = true;
+                                SelectedItem = _head.GetLastFocusedItem();
+                                IsShown = false;
+                            }
+                            index++;
                         }
-                        index++;
                     }
                 }
-            }
-            else if (Scene.CurrentScene.IsLeftMouseDown)
-            {
-                IsCancled = true;
-                IsShown = false;
+                else if (Scene.CurrentScene.IsLeftMouseDown)
+                {
+                    _head.Cancle();
+                    IsCancled = true;
+                    IsShown = false;
+                }
             }
         }
     }
