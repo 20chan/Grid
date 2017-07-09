@@ -10,6 +10,7 @@ namespace Grid.Framework.GUIs
     public class MenuStripItem : GUI
     {
         private static readonly int _gapX = 3, _gapY = 3;
+        private static readonly int _itemSizeIndent = 30;
 
         public static SpriteFont Font;
         private string _text;
@@ -54,7 +55,7 @@ namespace Grid.Framework.GUIs
                 itemSize = new Point(Math.Max(itemSize.X, item.MinimalSize.X),
                                      Math.Max(itemSize.Y, item.MinimalSize.Y));
 
-            itemSize.X += 30;
+            itemSize.X += _itemSizeIndent;
 
             Point currentPos = new Point(X + Width, Y);
 

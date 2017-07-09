@@ -52,8 +52,7 @@ namespace Grid.Framework.GUIs
 
             if (IsSelected) IsSelected = false;
             if (IsCancled) IsCancled = false;
-
-            // TODO: Bounds가 아니라 SubItemBound 도 전부 검사해야함
+            
             if (IsShown)
             {
                 foreach (var item in Items)
