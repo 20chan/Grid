@@ -269,5 +269,11 @@ namespace Grid.Framework
 
         public static T LoadContent<T>(string assetName)
             => CurrentScene.Content.Load<T>(assetName);
+
+        public GUI AddGUI(GUI gui)
+        {
+            guiManagerComponent.GUIs.Add(gui);
+            return gui;
+        }
     }
 }

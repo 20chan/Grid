@@ -62,7 +62,8 @@ namespace Grid.Framework.GUIs
             switch (DrawMode)
             {
                 case SliderBarDrawMode.Default:
-                    GUI.FillRectangle(sb, new Rectangle(_sliderBound.X, _sliderBound.Y - 5, _sliderBound.Width, _sliderBound.Height + 10), SliderColor);
+                    var smallBound = GetBarBound(10);
+                    GUI.FillRectangle(sb, new Rectangle(smallBound.X, smallBound.Y - 5, smallBound.Width, smallBound.Height + 10), SliderColor);
                     break;
                 case SliderBarDrawMode.Material:
                     GUI.FillRectangle(sb, new Rectangle(_sliderBound.X + 1, _sliderBound.Y + 1, _sliderBound.Width - 2, _sliderBound.Height - 2), SliderColor);
@@ -74,7 +75,8 @@ namespace Grid.Framework.GUIs
         {
             base.HandleEvent();
 
-            _sliderBound = new Rectangle(X + (int)((Width - _sliderWidth) / (MaxValue - MinValue) * Value), Y, _sliderWidth, Height);
+            _sliderBound = GetBarBound(_sliderWidth);
+
             var pos = Scene.CurrentScene.MousePosition;
 
             if (Scene.CurrentScene.IsLeftMouseDown)
@@ -97,5 +99,8 @@ namespace Grid.Framework.GUIs
                     _isDragging = false;
             }
         }
+
+        private Rectangle GetBarBound(int width)
+            => new Rectangle(X + (int)((Width - width) / (MaxValue - MinValue) * Value), Y, width, Height);
     }
 }

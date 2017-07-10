@@ -8,10 +8,13 @@ namespace Grid.Framework
     class TestScene : Scene
     {
         Slider slider;
+        Button button;
         protected override void LoadContent()
         {
             base.LoadContent();
-            slider = new Slider(100, 100, 500, 20, 0, 10) { DrawMode = Slider.SliderBarDrawMode.Material};
+            slider = new Slider(100, 250, 500, 20, 0, 10) { DrawMode = Slider.SliderBarDrawMode.Default};
+            button = new Button(10, 10, 200, 60, "Change mode");
+            guiManagerComponent.GUIs.Add(button);
             guiManagerComponent.GUIs.Add(slider);
         }
         
@@ -19,7 +22,9 @@ namespace Grid.Framework
         {
             base.Update(gameTime);
             Debug.DisplayLine($"Slider Value : {slider.Value}");
-            
+
+            if (button.IsMouseDown)
+                slider.DrawMode = slider.DrawMode == Slider.SliderBarDrawMode.Default ? Slider.SliderBarDrawMode.Material : Slider.SliderBarDrawMode.Default;
         }
     }
 }
