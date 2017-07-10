@@ -25,13 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:square.png
 
-#begin default.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:default.spritefont
-
 #begin hos.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -43,4 +36,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:hos.png
+
+#begin Grid/defaultFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Grid/defaultFont.spritefont
 

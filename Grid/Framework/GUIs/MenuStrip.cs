@@ -29,7 +29,7 @@ namespace Grid.Framework.GUIs
             _head = new MenuStripItem(">HEAD<", items ?? new List<MenuStripItem>(), true);
 
             if (MenuStripItem.Font == null)
-                MenuStripItem.Font = GUIManager.DefaultFont;
+                MenuStripItem.Font = Resources.Font;
         }
 
         public void Show(int x, int y)

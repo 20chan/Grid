@@ -24,19 +24,7 @@ namespace Grid.Framework
         public virtual void HandleEvent() { }
 
         #region Static Functions
-        private static Texture2D _dummyTexture;
-        public static Texture2D DummyTexture
-        {
-            get
-            {
-                if (_dummyTexture == null)
-                {
-                    _dummyTexture = new Texture2D(Scene.CurrentScene.GraphicsDevice, 1, 1);
-                    _dummyTexture.SetData(new[] { Color.White });
-                }
-                return _dummyTexture;
-            }
-        }
+        public static Texture2D DummyTexture => Resources.Dummy;
 
         public static void DrawString(SpriteBatch sb, SpriteFont font, string text, Alignment align, Rectangle bound, Color color, float rotation)
         {

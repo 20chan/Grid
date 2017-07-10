@@ -22,7 +22,6 @@ namespace Grid.Grid
         protected override void LoadContent()
         {
             base.LoadContent();
-            GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
             hosTexture = LoadContent<Texture2D>("hos");
 
             fastBtn = new Button(10, 10, 100, 100, "FASTER")

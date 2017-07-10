@@ -11,7 +11,6 @@ namespace Grid.Framework
         protected override void LoadContent()
         {
             base.LoadContent();
-            GUIManager.DefaultFont = LoadContent<SpriteFont>("default");
             button = new ActivatableButton(300, 100, 200, 70, "Click me")
             {
                 BackColor = Color.HotPink,

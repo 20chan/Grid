@@ -8,7 +8,7 @@ namespace Grid.Framework
     public class Debug : Renderable
     {
         private SpriteFont _font;
-        public SpriteFont Font { get => _font ?? GUIManager.DefaultFont; set => _font = value; }
+        public SpriteFont Font { get => _font ?? Resources.Font; set => _font = value; }
         public Color Color { get; set; } = Color.White;
         private StringBuilder _deepBuffer;
         private StringBuilder _buffer;

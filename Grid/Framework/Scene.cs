@@ -88,7 +88,7 @@ namespace Grid.Framework
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Resources.LoadAll();
             var mainCam = new GameObject("Camera");
             var cam = mainCam.AddComponent<Camera2D>();
             MainCamera = mainCam;

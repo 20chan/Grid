@@ -25,7 +25,7 @@ namespace Grid.Framework.GUIs
         {
             X = x; Y = y; Width = width; Height = height;
             Text = text;
-            Font = GUIManager.DefaultFont;
+            Font = Resources.Font;
         }
         
         public override void Draw(SpriteBatch sb)
