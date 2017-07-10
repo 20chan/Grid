@@ -59,6 +59,13 @@ namespace Grid.Framework
         private int _previousMouseScrollValue;
         #endregion
 
+        #region KeyEvent
+        public KeyboardState CurKeyState { get; private set; }
+        public KeyboardState PrevKeyState { get; private set; }
+        #endregion
+
+        public char TypedChar { get; private set; }
+
         public Scene()
         {
             Content.RootDirectory = "Content";
@@ -204,7 +211,14 @@ namespace Grid.Framework
 
             #endregion
 
+            HandleInputKey();
+
             base.Update(gameTime);
+        }
+
+        private void HandleInputKey()
+        {
+            bool isShiftDown = CurKeyState.IsKeyDown(Keys.LeftShift) || CurKeyState.IsKeyDown(Keys.RightShift);
         }
 
         protected override void Draw(GameTime gameTime)
