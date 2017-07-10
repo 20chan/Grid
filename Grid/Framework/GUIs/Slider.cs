@@ -59,16 +59,7 @@ namespace Grid.Framework.GUIs
 
             GUI.FillRectangle(sb, Bounds, BackColor);
             // GUI.DrawLine(sb, new Point(X + Width / 2, Y), new Point(X + Width / 2, Y + Height), 1f, Color.Red);
-            switch (DrawMode)
-            {
-                case SliderBarDrawMode.Default:
-                    var smallBound = GetBarBound(10);
-                    GUI.FillRectangle(sb, new Rectangle(smallBound.X, smallBound.Y - 5, smallBound.Width, smallBound.Height + 10), SliderColor);
-                    break;
-                case SliderBarDrawMode.Material:
-                    GUI.FillRectangle(sb, new Rectangle(_sliderBound.X + 1, _sliderBound.Y + 1, _sliderBound.Width - 2, _sliderBound.Height - 2), SliderColor);
-                    break;
-            }
+            GUI.FillRectangle(sb, _sliderBound, SliderColor);
         }
 
         public override void HandleEvent()
@@ -76,6 +67,18 @@ namespace Grid.Framework.GUIs
             base.HandleEvent();
 
             _sliderBound = GetBarBound(_sliderWidth);
+
+            switch(DrawMode)
+            {
+                case SliderBarDrawMode.Default:
+                    _sliderBound = GetBarBound(10);
+                    _sliderBound = new Rectangle(_sliderBound.X, _sliderBound.Y - 5, _sliderBound.Width, _sliderBound.Height + 10);
+                    break;
+                case SliderBarDrawMode.Material:
+                    _sliderBound = GetBarBound(_sliderWidth);
+                    _sliderBound = new Rectangle(_sliderBound.X + 1, _sliderBound.Y + 1, _sliderBound.Width - 2, _sliderBound.Height - 2);
+                    break;
+            }
 
             var pos = Scene.CurrentScene.MousePosition;
 
