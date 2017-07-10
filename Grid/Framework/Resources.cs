@@ -18,7 +18,5 @@ namespace Grid.Framework
 
         private static T LoadContent<T>(string name)
             => Scene.LoadContent<T>($"Grid/{name}");
-
-
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Framework\GUIs\ITypeable.cs" />
     <Compile Include="Framework\GUIs\MenuStrip.cs" />
     <Compile Include="Framework\GUIs\MenuStripItem.cs" />
+    <Compile Include="Framework\GUIs\Slider.cs" />
     <Compile Include="Framework\GUITestComponent.cs" />
     <Compile Include="Framework\RectExtended.cs" />
     <Compile Include="Framework\Resources.cs" />
