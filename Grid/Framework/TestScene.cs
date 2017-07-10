@@ -11,7 +11,7 @@ namespace Grid.Framework
         protected override void LoadContent()
         {
             base.LoadContent();
-            slider = new Slider(100, 100, 300, 10, 0, 1000);
+            slider = new Slider(100, 100, 500, 20, 0, 10) { DrawMode = Slider.SliderBarDrawMode.Material};
             guiManagerComponent.GUIs.Add(slider);
         }
         

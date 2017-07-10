@@ -6,6 +6,10 @@ namespace Grid.Framework.GUIs
 {
     public class Slider : GUI
     {
+        public enum SliderBarDrawMode
+        {
+            Default, Material
+        }
         private int _sliderWidth = 10;
         private float _minValue;
         public float MinValue
@@ -30,6 +34,7 @@ namespace Grid.Framework.GUIs
         public float MoveRatio { get => _moveRatio; set => _moveRatio = MathHelper.Clamp(value, 0, 1); }
         public Color BackColor { get; set; } = Color.LightGray;
         public Color SliderColor { get; set; } = Color.Gray;
+        public SliderBarDrawMode DrawMode { get; set; } = SliderBarDrawMode.Default;
 
         private Rectangle _sliderBound;
         private bool _isDragging = false;
@@ -54,14 +59,22 @@ namespace Grid.Framework.GUIs
 
             GUI.FillRectangle(sb, Bounds, BackColor);
             // GUI.DrawLine(sb, new Point(X + Width / 2, Y), new Point(X + Width / 2, Y + Height), 1f, Color.Red);
-            GUI.FillRectangle(sb, _sliderBound, SliderColor);
+            switch (DrawMode)
+            {
+                case SliderBarDrawMode.Default:
+                    GUI.FillRectangle(sb, new Rectangle(_sliderBound.X, _sliderBound.Y - 5, _sliderBound.Width, _sliderBound.Height + 10), SliderColor);
+                    break;
+                case SliderBarDrawMode.Material:
+                    GUI.FillRectangle(sb, new Rectangle(_sliderBound.X + 1, _sliderBound.Y + 1, _sliderBound.Width - 2, _sliderBound.Height - 2), SliderColor);
+                    break;
+            }
         }
 
         public override void HandleEvent()
         {
             base.HandleEvent();
 
-            _sliderBound = new Rectangle(X + (int)((Width - _sliderWidth) / (MaxValue - MinValue) * Value), Y - 5, _sliderWidth, Height + 10);
+            _sliderBound = new Rectangle(X + (int)((Width - _sliderWidth) / (MaxValue - MinValue) * Value), Y, _sliderWidth, Height);
             var pos = Scene.CurrentScene.MousePosition;
 
             if (Scene.CurrentScene.IsLeftMouseDown)
