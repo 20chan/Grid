@@ -13,7 +13,7 @@ namespace Grid.Framework.GUIs
         private int _border = 1;
         public int Border { get => _border; set { _border = Math.Max(0, value); } }
         public Color BorderColor { get; set; } = Color.Black;
-        public Color Color { get; set; } = Color.White;
+        public Color BackColor { get; set; } = Color.White;
 
         public Alignment TextAlignment { get; set; } = 0;
         public Color TextColor { get; set; } = Color.Black;
@@ -31,7 +31,7 @@ namespace Grid.Framework.GUIs
         public override void Draw(SpriteBatch sb)
         {
             GUI.FillRectangle(sb, new Rectangle(X - Border, Y - Border, Width + Border * 2, Height + Border * 2), BorderColor);
-            GUI.FillRectangle(sb, new Rectangle(X, Y, Width, Height), Color);
+            GUI.FillRectangle(sb, new Rectangle(X, Y, Width, Height), BackColor);
             DrawString(sb, Font, Text, TextAlignment, new Rectangle((int)X, (int)Y, (int)Width, (int)Height), TextColor, TextRotation);
             base.Draw(sb);
         }
