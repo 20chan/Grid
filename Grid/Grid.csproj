@@ -55,21 +55,12 @@
     <Compile Include="Framework\GUIs\Button.cs" />
     <Compile Include="Framework\GUIs\Clickable.cs" />
     <Compile Include="Framework\GUIs\ImageButton.cs" />
-    <Compile Include="Framework\GUIs\IScrollable.cs" />
-    <Compile Include="Framework\GUIs\ITypeable.cs" />
     <Compile Include="Framework\GUIs\MenuStrip.cs" />
     <Compile Include="Framework\GUIs\MenuStripItem.cs" />
     <Compile Include="Framework\GUIs\Slider.cs" />
-    <Compile Include="Framework\GUITestComponent.cs" />
     <Compile Include="Framework\RectExtended.cs" />
     <Compile Include="Framework\Resources.cs" />
     <Compile Include="Framework\Scene.cs" />
-    <Compile Include="Tests\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Tests\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tests\TestScene.cs" />
     <Compile Include="Framework\Time.cs" />
     <Compile Include="Framework\Transform.cs" />
@@ -98,11 +89,6 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Tests\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
