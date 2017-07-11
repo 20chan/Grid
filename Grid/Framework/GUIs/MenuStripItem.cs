@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Grid.Framework.GUIs
 {
+    [CannotDrawIndependently]
     public class MenuStripItem : GUI
     {
         private static readonly int _gapX = 3, _gapY = 3;

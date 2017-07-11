@@ -9,10 +9,20 @@ namespace Grid.Framework
 {
     public class GUI
     {
+        [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+        public class CannotDrawIndependently : Attribute { }
+
         public int X { get; set; } = -1;
         public int Y { get; set; } = -1;
         public int Width { get; set; } = -1;
         public int Height { get; set; } = -1;
+
+        private bool _canDrawIndependently = true;
+
+        public GUI()
+        {
+            _canDrawIndependently = GetType().GetCustomAttributes(true).Any(o => o is CannotDrawIndependently);
+        }
 
         public Rectangle Bounds
         {
@@ -20,7 +30,11 @@ namespace Grid.Framework
             set { X = value.X; Y = value.Y; Width = value.Width; Height = value.Height; }
         }
 
-        public virtual void Draw(SpriteBatch sb) { }
+        public virtual void Draw(SpriteBatch sb)
+        {
+            if (_canDrawIndependently) throw new NotSupportedException("This GUI cannot be draw independently.");
+        }
+
         public virtual void HandleEvent() { }
 
         #region Static Functions
