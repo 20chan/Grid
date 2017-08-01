@@ -16,6 +16,7 @@ namespace Grid.Framework.GUIs
         public static SpriteFont Font;
         private string _text;
         public bool IsHead { get; private set; }
+        public bool Visible { get; set; } = true;
         public string Text
         {
             get => _text;
@@ -59,12 +60,13 @@ namespace Grid.Framework.GUIs
             itemSize.X += _itemSizeIndent;
 
             Point currentPos = new Point(X + Width, Y);
+            int count = SubItems.Where(m => m.Visible).Count();
 
             // 일단 색은 하얀색으로
-            var rect = new Rectangle(currentPos, new Point(itemSize.X + _gapX * 2, (itemSize.Y + _gapY * 2) * SubItems.Count));
+            var rect = new Rectangle(currentPos, new Point(itemSize.X + _gapX * 2, (itemSize.Y + _gapY * 2) * count));
             FillRectangle(sb, rect, Color.White);
 
-            foreach (var item in SubItems)
+            foreach (var item in SubItems.Where(m => m.Visible))
             {
                 // MenuStripItem 그리기
                 Rectangle bound = new Rectangle(currentPos.X + _gapX, currentPos.Y + _gapY, itemSize.X, itemSize.Y);
@@ -109,7 +111,7 @@ namespace Grid.Framework.GUIs
                     select sub.IsSubItemsFocused()).Any(b => b));
 
         public MenuStripItem GetLastFocusedItem()
-            => SubItems.Count == 0 ? this : SubItems.FindLast(i => i.Focused)?.GetLastFocusedItem() ?? this;
+            => SubItems.Count == 0 ? this : SubItems.FindLast(i => i.Visible && i.Focused)?.GetLastFocusedItem() ?? this;
 
         public void Cancle()
         {
@@ -119,6 +121,6 @@ namespace Grid.Framework.GUIs
         }
 
         public bool IsFocusedItemExist()
-            => SubItems.Any(item => item.Focused);
+            => Visible && SubItems.Any(item => item.Focused);
     }
 }

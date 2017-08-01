@@ -35,5 +35,11 @@ namespace Grid.Tests
         {
             base.Draw(gameTime);
         }
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            Debug.Display("dfisdjfo");
+        }
     }
 }
