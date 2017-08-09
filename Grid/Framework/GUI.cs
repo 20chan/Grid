@@ -120,11 +120,40 @@ namespace Grid.Framework
             return points;
         }
 
+        private static Vector2[] ellipseVertices(float semimajor, float semiminor, float angle, int sides)
+        {
+            const double max = 2.0 * Math.PI;
+            var points = new Vector2[sides];
+            var step = max / sides;
+            var theta = 0.0;
+
+            for (var i = 0; i < sides; i++)
+            {
+                Vector2 temp = new Vector2((float)(semimajor * Math.Cos(theta)), (float)(semiminor * Math.Sin(theta)));
+                points[i] = new Vector2(temp.X * (float)Math.Cos(angle) - temp.Y * (float)Math.Sin(angle), temp.X * (float)Math.Sin(angle) + temp.Y * (float)Math.Cos(angle));
+                theta += step;
+            }
+
+            return points;
+        }
+
         public static void DrawCircle(SpriteBatch sb, Point center, float radius, float border, Color color, int sides)
             => DrawCircle(sb, center.ToVector2(), radius, border, color, sides);
 
         public static void DrawCircle(SpriteBatch sb, Vector2 center, float radius, float border, Color color, int sides)
             => DrawVertices(sb, center, circleVertices(radius, sides), border, color);
+
+        public static void DrawEllipse(SpriteBatch sb, Point focus1, Point focus2, float semimajor, float semiminor, float border, Color color, int sides)
+        {
+            Vector2 diff = (focus1.ToVector2() - focus2.ToVector2());
+            DrawVertices(sb, (focus1.ToVector2() + focus2.ToVector2()) / 2, ellipseVertices(semimajor, semiminor, (float)Math.Atan2(diff.Y, diff.X), sides), border, color);
+        }
+
+        public static void DrawEllipse(SpriteBatch sb, Vector2 focus1, Vector2 focus2, float semimajor, float semiminor, float border, Color color, int sides)
+        {
+            Vector2 diff = (focus1 - focus2);
+            DrawVertices(sb, (focus1 + focus2) / 2, ellipseVertices(semimajor, semiminor, (float)Math.Atan2(diff.Y, diff.X), sides), border, color);
+        }
 
         public static void DrawPoint(SpriteBatch sb, Vector2 point, float border, Color color)
             => sb.Draw(DummyTexture, point - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
