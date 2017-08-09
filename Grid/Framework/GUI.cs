@@ -145,8 +145,7 @@ namespace Grid.Framework
 
         public static void DrawEllipse(SpriteBatch sb, Point focus1, Point focus2, float semimajor, float semiminor, float border, Color color, int sides)
         {
-            Vector2 diff = (focus1.ToVector2() - focus2.ToVector2());
-            DrawVertices(sb, (focus1.ToVector2() + focus2.ToVector2()) / 2, ellipseVertices(semimajor, semiminor, (float)Math.Atan2(diff.Y, diff.X), sides), border, color);
+            DrawEllipse(sb, focus1.ToVector2(), focus2.ToVector2(), semimajor, semiminor, border, color, sides);
         }
 
         public static void DrawEllipse(SpriteBatch sb, Vector2 focus1, Vector2 focus2, float semimajor, float semiminor, float border, Color color, int sides)
