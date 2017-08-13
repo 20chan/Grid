@@ -153,7 +153,13 @@ namespace Grid.Framework
             Vector2 diff = (focus1 - focus2);
             DrawVertices(sb, (focus1 + focus2) / 2, ellipseVertices(semimajor, semiminor, (float)Math.Atan2(diff.Y, diff.X), sides), border, color);
         }
-
+        public static void DrawEllipse(SpriteBatch sb, Vector2 focus1, Vector2 focus2, Vector2 pinpoint, float border, Color color, int sides)
+        {
+            float c =Vector2.Distance(focus1, focus2) / 2;
+            float semimajor = (Vector2.Distance(focus1, pinpoint) + Vector2.Distance(focus2, pinpoint)) / 2;
+            float semiminor = (float)Math.Sqrt(semimajor*semimajor - c*c);
+            DrawEllipse(sb, focus1, focus2, semimajor, semiminor, border, color, sides);
+        }
         public static void DrawPoint(SpriteBatch sb, Vector2 point, float border, Color color)
             => sb.Draw(DummyTexture, point - new Vector2(border * 0.5f), null, color, 0f, new Vector2(), Vector2.One * border, SpriteEffects.None, 0);
 

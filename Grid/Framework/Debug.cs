@@ -53,6 +53,12 @@ namespace Grid.Framework
             base.Draw(sb);
             sb.Begin();
             GUI.DrawString(sb, Font, _out, Alignment.Right | Alignment.Top, (Camera.Current as Camera2D).Bounds, Color, 0);
+            /*
+            GUI.DrawPoint(sb, new Vector2(0,0), 10, Color.Coral );
+            GUI.DrawPoint(sb, new Vector2(250,400), 10, Color.Coral);
+            GUI.DrawPoint(sb, new Vector2(300, 300), 10, Color.Coral);
+            GUI.DrawEllipse(sb, new Vector2(0,0), new Vector2(250, 400), new Vector2(300,300), 1, Color.Coral, 100);
+            */
             sb.End();
         }
     }
