@@ -67,7 +67,7 @@ namespace Grid.Framework
             {
                 DrawLine(sb, vertices[i] + position, vertices[i + 1] + position, border, color);
             }
-            DrawLine(sb, vertices.Last() + position, vertices.First() + position, border, color);
+            // DrawLine(sb, vertices.Last() + position, vertices.First() + position, border, color);
         }
 
         public static void DrawLine(SpriteBatch sb, Vector2 p1, Vector2 p2, float border, Color color)
@@ -103,13 +103,14 @@ namespace Grid.Framework
         public static void FillRectangle(SpriteBatch sb, Point p1, Point p2, Color color)
             => FillRectangle(sb, RectExtended.FromPoints(p1, p2), color);
 
-        private static Vector2[] circleVertices(float radius, int sides)
+        private static Vector2[] circleVertices(float radius, int sides,  float lowerbound = 0, float upperbound = (float)( 2.0 * Math.PI) )
         {
             // https://github.com/craftworkgames/MonoGame.Extended/blob/develop/Source/MonoGame.Extended/ShapeExtensions.cs#L271
-            const double max = 2.0 * Math.PI;
+            //const double max = 2.0 * Math.PI;
             var points = new Vector2[sides];
-            var step = max / sides;
-            var theta = 0.0;
+            var interval = upperbound - lowerbound;
+            var step = interval / sides;
+            var theta = lowerbound;
 
             for (var i = 0; i < sides; i++)
             {
@@ -120,7 +121,7 @@ namespace Grid.Framework
             return points;
         }
 
-        private static Vector2[] ellipseVertices(float semimajor, float semiminor, float angle, int sides)
+        private static Vector2[] ellipseVertices(float semimajor, float semiminor, float angle, int sides )
         {
             const double max = 2.0 * Math.PI;
             var points = new Vector2[sides];
@@ -142,6 +143,12 @@ namespace Grid.Framework
 
         public static void DrawCircle(SpriteBatch sb, Vector2 center, float radius, float border, Color color, int sides)
             => DrawVertices(sb, center, circleVertices(radius, sides), border, color);
+
+        public static void DrawArc(SpriteBatch sb, Vector2 center, float radius, float lowerbound, float upperbound, float border, Color color, int sides)
+            => DrawVertices(sb, center, circleVertices(radius, sides, lowerbound, upperbound), border, color);
+
+        public static void DrawArc(SpriteBatch sb, Point center, float radius, float lowerbound, float upperbound, float border, Color color, int sides)
+             => DrawVertices(sb, center.ToVector2(), circleVertices(radius, sides, lowerbound, upperbound), border, color);
 
         public static void DrawEllipse(SpriteBatch sb, Point focus1, Point focus2, float semimajor, float semiminor, float border, Color color, int sides)
         {
