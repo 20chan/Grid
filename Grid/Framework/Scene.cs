@@ -117,6 +117,7 @@ namespace Grid.Framework
         {
             Time.ElapsedGameTime = gameTime.ElapsedGameTime;
             Time.TotalGameTime = gameTime.TotalGameTime;
+            if (!IsActive) return;
             while (_destroyComponentQueue.Count > 0)
             {
                 var comp = _destroyComponentQueue.Dequeue();

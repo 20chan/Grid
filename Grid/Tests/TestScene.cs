@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Grid.Framework.GUIs;
 using Grid.Framework;
 
@@ -9,31 +9,18 @@ namespace Grid.Tests
 {
     class TestScene : Scene
     {
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-
-            TextBox t = new TextBox();
-            t.Location = new System.Drawing.Point(40, 40);
-            t.Size = new System.Drawing.Size(300, 150);
-            t.Multiline = true;
-
-            System.Windows.Forms.Button b = new System.Windows.Forms.Button();
-            b.Location = new System.Drawing.Point(380, 40);
-            b.Size = new System.Drawing.Size(300, 150);
-            b.Click += (s, e) => MessageBox.Show("Pressed!");
-            b.Text = "Press me!";
-
-            ListView l = new ListView();
-            l.Location = new System.Drawing.Point(40, 200);
-            l.View = View.List;
-            l.Items.Add("Item 1");
-            Control.FromHandle(Window.Handle).Controls.AddRange(new Control[] { b, t, l });
-        }
-
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
+            _spriteBatch.Begin();
+            GUI.DrawEllipse(_spriteBatch,
+                new Vector2(500, 500),
+                new Vector2(200, 100),
+                Mouse.GetState().Position.ToVector2(),
+                10f,
+                Color.Black,
+                100);
+            _spriteBatch.End();
         }
 
         protected override void Update(GameTime gameTime)
