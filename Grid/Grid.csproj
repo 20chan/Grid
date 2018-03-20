@@ -42,11 +42,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Framework\Component.cs" />
+    <Compile Include="Framework\Components\Animation.cs" />
     <Compile Include="Framework\Components\Camera.cs" />
     <Compile Include="Framework\Components\Camera2D.cs" />
     <Compile Include="Framework\Components\Renderable.cs" />
     <Compile Include="Framework\Components\Renderable2D.cs" />
-    <Compile Include="Framework\Components\Renderable2DAnimation.cs" />
+    <Compile Include="Framework\Components\SpriteAnimator.cs" />
     <Compile Include="Framework\Debug.cs" />
     <Compile Include="Framework\GameObject.cs" />
     <Compile Include="Framework\GUI.cs" />

@@ -121,7 +121,7 @@ namespace Grid.Framework
             while (_destroyComponentQueue.Count > 0)
             {
                 var comp = _destroyComponentQueue.Dequeue();
-                comp.GameObject.DestroyComponentImmediate(comp);
+                comp.gameObject.DestroyComponentImmediate(comp);
             }
             while (_destroyGameObjectQueue.Count > 0)
             {

@@ -20,7 +20,7 @@ namespace Grid.Framework.Components
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(Texture, GameObject.AbsolutePosition, null, Color.White, GameObject.AbsoluteRotation, Origin, GameObject.AbsoluteScale, SpriteEffects.None, 0);
+            sb.Draw(Texture, gameObject.AbsolutePosition, null, Color.White, gameObject.AbsoluteRotation, Origin, gameObject.AbsoluteScale, SpriteEffects.None, 0);
         }
     }
 }

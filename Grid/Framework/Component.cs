@@ -10,7 +10,7 @@ namespace Grid.Framework
     {
         public bool Enabled { get; set; } = true;
 
-        public GameObject GameObject { get; set; }
+        public GameObject gameObject { get; set; }
         
         public virtual void Start() { }
         public virtual void Update() { }

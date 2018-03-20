@@ -9,7 +9,7 @@ namespace Grid
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Scene
+    internal class Game1 : Scene
     {
         public Game1()
         {
@@ -36,16 +36,16 @@ namespace Grid
         public override void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
-                GameObject.Transform.Position += new Vector2(0, -1) * Speed;
+                gameObject.Transform.Position += new Vector2(0, -1) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.S))
-                GameObject.Transform.Position += new Vector2(0, 1) * Speed;
+                gameObject.Transform.Position += new Vector2(0, 1) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.A))
-                GameObject.Transform.Position += new Vector2(-1, 0) * Speed;
+                gameObject.Transform.Position += new Vector2(-1, 0) * Speed;
             if (Keyboard.GetState().IsKeyDown(Keys.D))
-                GameObject.Transform.Position += new Vector2(1, 0) * Speed;
+                gameObject.Transform.Position += new Vector2(1, 0) * Speed;
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                Destroy(GameObject);
+                Destroy(gameObject);
             base.Update();
         }
     }

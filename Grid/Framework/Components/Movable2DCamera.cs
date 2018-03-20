@@ -16,7 +16,7 @@ namespace Grid.Framework.Components
         private int _previousScroll = 0;
         public override void LateUpdate()
         {
-            var cam = GameObject.GetComponent<Camera2D>();
+            var cam = gameObject.GetComponent<Camera2D>();
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 cam.MoveAbsolutely(new Vector2(0, -1) * Speed);
             if (Keyboard.GetState().IsKeyDown(Keys.Down))

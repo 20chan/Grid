@@ -48,7 +48,7 @@ namespace Grid.Framework
 
         public void OnDestroy()
         {
-            _components.ForEach(c => c.GameObject = null);
+            _components.ForEach(c => c.gameObject = null);
             _components.Clear();
             Destroyed = true;
         }
@@ -61,7 +61,7 @@ namespace Grid.Framework
 
             T component = new T()
             {
-                GameObject = this
+                gameObject = this
             };
             _components.Add(component);
             Scene.CurrentScene.AddStartQueue(component);
@@ -71,7 +71,7 @@ namespace Grid.Framework
         internal void DestroyComponentImmediate(Component comp)
         {
             _components.Remove(comp);
-            comp.GameObject = null;
+            comp.gameObject = null;
         }
 
         public Component[] GetAllComponents()

@@ -31,7 +31,7 @@ namespace Grid.Grid
         {
             base.Start();
 
-            GameObject.AddComponent<WorldRender>();
+            gameObject.AddComponent<WorldRender>();
         }
 
         public void InitBlocks()
@@ -54,7 +54,7 @@ namespace Grid.Grid
             {
                 Texture = new Texture2D(Scene.CurrentScene.GraphicsDevice, 1, 1);
                 Texture.SetData<Color>(new Color[] { Color.Black });
-                _world = GameObject.GetComponent<World>();
+                _world = gameObject.GetComponent<World>();
             }
             public override void Draw(SpriteBatch sb)
             {
