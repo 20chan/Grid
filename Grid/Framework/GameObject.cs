@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Grid.Framework
 {
-    public class GameObject
+    public sealed class GameObject
     {
         public bool Enabled { get; set; } = true;
 

@@ -12,9 +12,6 @@ namespace Grid.Framework.Components
         public Vector2 Origin { get; set; } = new Vector2();
         public Texture2D[] Textures { get; set; }
 
-        public bool IsStopped { get; private set; }
-        public bool IsRepeatable { get; set; }
-
         private Animation _currentAnim;
         private int _currentFrame = 0;
         private int _currentFrameIndex = 0;
@@ -22,12 +19,11 @@ namespace Grid.Framework.Components
         public override void Update()
         {
             base.Update();
-            if (IsStopped) return;
-
-            _currentFrame++;
-            if (_currentFrame == _currentAnim.Interval)
+            if (_currentAnim.IsStopped) return;
+            
+            if (_currentFrame++ == _currentAnim.Interval)
             {
-                if (_currentFrameIndex++ > _currentAnim.FrameCount && IsRepeatable)
+                if (++_currentFrameIndex >= _currentAnim.FrameCount && _currentAnim.IsRepeatable)
                     _currentFrameIndex = 0;
                 _currentFrame = 0;
             }
@@ -35,17 +31,20 @@ namespace Grid.Framework.Components
 
         public void StartAnimation(Animation anim)
         {
+            if (_currentAnim != null)
+            _currentAnim.IsEnabled = false;
+            anim.IsEnabled = true;
             _currentAnim = anim;
             _currentFrame = 0;
-            _currentFrameIndex = _currentAnim.Indices[0];
+            _currentFrameIndex = 0;
             Resume();
         }
 
         public void Stop()
-            => IsStopped = _currentAnim.IsStopped = true;
+            => _currentAnim.IsStopped = true;
 
         public void Resume()
-            => IsStopped = _currentAnim.IsStopped = false;
+            => _currentAnim.IsStopped = false;
 
         public override void Draw(SpriteBatch sb)
         {

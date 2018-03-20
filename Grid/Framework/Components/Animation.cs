@@ -12,6 +12,7 @@ namespace Grid.Framework.Components
 
         public int FrameCount => Indices.Length;
         public int Interval = 1;
+        public bool IsEnabled { get; internal set; } = false;
         public bool IsStopped { get; set; }
         public bool IsRepeatable { get; set; }
 
@@ -19,6 +20,7 @@ namespace Grid.Framework.Components
 
         public Animation(SpriteAnimator animator, int[] indices, bool repeatable = true)
         {
+            Animator = animator;
             Indices = indices;
             IsRepeatable = repeatable;
         }
