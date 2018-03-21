@@ -6,9 +6,6 @@ using Grid.Framework.Components;
 
 namespace Grid
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     internal class Game1 : Scene
     {
         public Game1()
@@ -31,6 +28,10 @@ namespace Grid
                 Content.Load<Texture2D>("anim/left-2"),
                 Content.Load<Texture2D>("anim/right-1"),
                 Content.Load<Texture2D>("anim/right-2"),
+                Content.Load<Texture2D>("anim/down-1"),
+                Content.Load<Texture2D>("anim/down-2"),
+                Content.Load<Texture2D>("anim/up-1"),
+                Content.Load<Texture2D>("anim/up-2"),
             };
             obj.AddComponent<Movable>();
             Instantiate(obj);
@@ -42,7 +43,7 @@ namespace Grid
     class Movable : Component
     {
         public float Speed = 5f;
-        public Animation Ideal, Left, Right;
+        public Animation Ideal, Left, Right, Up, Down;
 
         public override void Start()
         {
@@ -50,54 +51,46 @@ namespace Grid
             Ideal = new Animation(animator, new[] { 0 });
             Left = new Animation(animator, new[] { 1, 2 });
             Right = new Animation(animator, new[] { 3, 4 });
+            Down = new Animation(animator, new[] { 5, 6 });
+            Up = new Animation(animator, new[] { 7, 8 });
             Ideal.Start();
             base.Start();
         }
-
-        private bool _movingLeft, _movingRight;
+        
         public override void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
                 gameObject.Transform.Position += new Vector2(0, -1) * Speed;
+                if (!Up.IsEnabled)
+                    Up.Start();
+            }
+            else if (Up.IsEnabled)
+                Ideal.Start();
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 gameObject.Transform.Position += new Vector2(0, 1) * Speed;
-
+                if (!Down.IsEnabled)
+                    Down.Start();
             }
+            else if (Down.IsEnabled)
+                Ideal.Start();
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 gameObject.Transform.Position += new Vector2(-1, 0) * Speed;
-                if (!_movingLeft)
-                {
-                    _movingLeft = true;
+                if (!Left.IsEnabled)
                     Left.Start();
-                }
             }
-            else
-            {
-                if (_movingLeft)
-                {
-                    Ideal.Start();
-                    _movingLeft = false;
-                }
-            }
+            else if (Left.IsEnabled)
+                Ideal.Start();
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 gameObject.Transform.Position += new Vector2(1, 0) * Speed;
-                if (!_movingRight)
-                {
-                    _movingRight = true;
+                if (!Right.IsEnabled)
                     Right.Start();
-                }
             }
-            else
-            {
-                if (_movingRight)
-                {
-                    Ideal.Start();
-                    _movingRight = false;
-                }
-            }
+            else if (Right.IsEnabled)
+                Ideal.Start();
 
             //if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             //    Destroy(gameObject);

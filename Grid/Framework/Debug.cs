@@ -54,10 +54,6 @@ namespace Grid.Framework
             base.Draw(sb);
             sb.Begin();
             GUI.DrawString(sb, Font, _out, Alignment.Right | Alignment.Top, (Camera.Current as Camera2D).Bounds, Color, 0);
-            GUI.DrawPoint(sb, new Vector2(0,0), 10, Color.Coral );
-            GUI.DrawPoint(sb, new Vector2(250,400), 10, Color.Coral);
-            GUI.DrawPoint(sb, new Vector2(300, 300), 10, Color.Coral);
-            GUI.DrawEllipse(sb, new Vector2(0,0), new Vector2(250, 400), new Vector2(300,300), 1, Color.Coral, 100);
             
             //GUI.DrawArc(sb, new Vector2(350,350), 100, 0 , (float)(2 * Math.PI), 2 , Color.Chocolate, 100);
             sb.End();
