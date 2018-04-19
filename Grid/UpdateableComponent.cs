@@ -1,10 +1,10 @@
 ﻿namespace Grid
 {
-    public abstract class UpdatableComponent : Component, IComponentUpdatable
+    public abstract class UpdateableComponent : Component, IComponentUpdateable
     {
         public bool Enabled { get; private set; }
 
-        public UpdatableComponent(Entity parent) : base(parent)
+        public UpdateableComponent(Entity parent) : base(parent)
         {
 
         }

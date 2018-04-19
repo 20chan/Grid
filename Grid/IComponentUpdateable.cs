@@ -1,6 +1,6 @@
 ﻿namespace Grid
 {
-    public interface IComponentUpdatable
+    public interface IComponentUpdateable
     {
         bool Enabled { get; }
         void Update();
