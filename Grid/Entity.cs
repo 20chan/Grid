@@ -6,6 +6,9 @@ namespace Grid
 {
     public class Entity
     {
+        private Entity _parent;
+        private List<Entity> _children;
+
         private List<IComponent> _comps;
         private List<IComponentUpdateable> _updateableComps;
         private List<IComponentRenderable> _renderableComps;
@@ -24,6 +27,38 @@ namespace Grid
             _tempComps = new List<IComponent>();
             _tempUpdateableComps = new List<IComponentUpdateable>();
             _tempRenderableComps = new List<IComponentRenderable>();
+        }
+
+        public void SetParent(Entity parent)
+        {
+            if (_parent != null)
+                _parent._children.Remove(this);
+            _parent = parent;
+            if (_parent != null)
+                _parent._children.Add(this);
+        }
+
+        public Entity GetRootParent()
+        {
+            Entity current = this;
+            Entity parent;
+            do
+            {
+                parent = current._parent;
+                if (parent == null)
+                    return current;
+                current = parent;
+            }
+            while (parent != null);
+            return null;
+        }
+
+        public void Destroy()
+        {
+            RemoveAllComponents();
+
+            foreach (var c in _children)
+                c.Destroy();
         }
 
         public void Initialize()
