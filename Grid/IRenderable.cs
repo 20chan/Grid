@@ -2,7 +2,7 @@
 
 namespace Grid
 {
-    public interface IComponentRenderable
+    public interface IRenderable : IComponent
     {
         bool Visible { get; }
         void Render(SpriteBatch sb);

@@ -1,32 +1,38 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Grid
 {
-    public class Entity
+    public sealed class Entity
     {
+        public string Name { get; private set; }
+        public Vector2 Position { get; set; }
         private Entity _parent;
         private List<Entity> _children;
 
         private List<IComponent> _comps;
-        private List<IComponentUpdateable> _updateableComps;
-        private List<IComponentRenderable> _renderableComps;
+        private List<IUpdatable> _updateableComps;
+        private List<IRenderable> _renderableComps;
 
         private List<IComponent> _tempComps;
-        private List<IComponentUpdateable> _tempUpdateableComps;
-        private List<IComponentRenderable> _tempRenderableComps;
+        private List<IUpdatable> _tempUpdateableComps;
+        private List<IRenderable> _tempRenderableComps;
 
         private bool _isInitialized = false;
 
-        public Entity()
+        public Entity(string name)
         {
+            _children = new List<Entity>();
             _comps = new List<IComponent>();
-            _updateableComps = new List<IComponentUpdateable>();
-            _renderableComps = new List<IComponentRenderable>();
+            _updateableComps = new List<IUpdatable>();
+            _renderableComps = new List<IRenderable>();
             _tempComps = new List<IComponent>();
-            _tempUpdateableComps = new List<IComponentUpdateable>();
-            _tempRenderableComps = new List<IComponentRenderable>();
+            _tempUpdateableComps = new List<IUpdatable>();
+            _tempRenderableComps = new List<IRenderable>();
+
+            Name = name;
         }
 
         public void SetParent(Entity parent)
@@ -98,15 +104,13 @@ namespace Grid
         public void AddComponent(IComponent comp)
         {
             _comps.Add(comp);
-            var updateable = comp as IComponentUpdateable;
-            var renderable = comp as IComponentRenderable;
 
-            if (updateable != null)
+            if (comp is IUpdatable updateable)
             {
                 _updateableComps.Add(updateable);
             }
 
-            if (renderable != null)
+            if (comp is IRenderable renderable)
             {
                 _renderableComps.Add(renderable);
             }
@@ -118,7 +122,7 @@ namespace Grid
             }
         }
 
-        public T GetComponent<T>() where T : UpdateableComponent
+        public T GetComponent<T>() where T : class, IComponent
         {
             foreach (var comp in _comps)
             {
@@ -132,15 +136,12 @@ namespace Grid
         {
             if (_comps.Remove(comp))
             {
-                var updateable = comp as IComponentUpdateable;
-                var renderable = comp as IComponentRenderable;
-
-                if (updateable != null)
+                if (comp is IUpdatable updateable)
                 {
                     _updateableComps.Remove(updateable);
                 }
 
-                if (renderable != null)
+                if (comp is IRenderable renderable)
                 {
                     _renderableComps.Remove(renderable);
                 }

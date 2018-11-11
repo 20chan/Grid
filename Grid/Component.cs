@@ -2,17 +2,15 @@
 {
     public abstract class Component : IComponent
     {
-        public Entity Parent { get; private set; }
+        public Entity GameObject { get; private set; }
 
-        public string Name { get; set; }
-
-        public Component(Entity parent)
+        public Component(Entity gameObject)
         {
-            Parent = parent;
+            GameObject = gameObject;
         }
 
-        public abstract void Initialize();
+        public virtual void Initialize() { }
 
-        public abstract void Start();
+        public virtual void Start() { }
     }
 }
